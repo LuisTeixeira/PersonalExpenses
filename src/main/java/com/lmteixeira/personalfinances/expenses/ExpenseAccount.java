@@ -13,6 +13,9 @@ public class ExpenseAccount {
     }
 
     public void addExpense(BigDecimal expense) {
+        if (expense.compareTo(BigDecimal.ZERO) < 0) {
+            throw new InvalidExpenseValueException("Value " + expense.toPlainString() + " is less than zero");
+        }
         total = total.add(expense);
         expenseCount++;
     }
@@ -28,5 +31,11 @@ public class ExpenseAccount {
 
     public BigDecimal getAverage() {
         return total.divide(BigDecimal.valueOf(expenseCount), 2, RoundingMode.HALF_UP);
+    }
+
+    public class InvalidExpenseValueException extends RuntimeException {
+        public InvalidExpenseValueException(String message) {
+            super(message);
+        }
     }
 }

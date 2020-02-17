@@ -30,14 +30,14 @@ public class ExpenseAccountTest {
 
     @Test
     public void totalAfterAddingOneExpenseShouldBeEqualToExpense() {
-        expenseAccount.addExpense(BigDecimal.valueOf(22.5d));
+        addExpense(BigDecimal.valueOf(22.5d));
         BigDecimal total = expenseAccount.getTotal();
         Assert.assertTrue(compareBigDecimals(BigDecimal.valueOf(22.5d), total));
     }
 
     @Test
     public void afterAddingOneExpenseCountShouldBeEqualToOne() {
-        expenseAccount.addExpense(BigDecimal.valueOf(22.5d));
+        addExpense(BigDecimal.valueOf(22.5d));
         Long expensesCount = expenseAccount.getExpenseCount();
         Assert.assertEquals(Long.valueOf(1), expensesCount);
     }
@@ -46,8 +46,8 @@ public class ExpenseAccountTest {
     public void afterAddingTwoExpensesTheTotalShouldBeSumOfExpenses() {
         BigDecimal firstExpense = new BigDecimal(22.5);
         BigDecimal secondExpense = new BigDecimal(30);
-        expenseAccount.addExpense(firstExpense);
-        expenseAccount.addExpense(secondExpense);
+        addExpense(firstExpense);
+        addExpense(secondExpense);
         BigDecimal total = expenseAccount.getTotal();
         Assert.assertTrue(compareBigDecimals(firstExpense.add(secondExpense), total));
     }
@@ -56,8 +56,8 @@ public class ExpenseAccountTest {
     public void afterAddingTwoExpensesAndRemovingOneTotalShouldBeEqualToKeptExpense() {
         BigDecimal firstExpense = new BigDecimal(22.5);
         BigDecimal secondExpense = new BigDecimal(30);
-        expenseAccount.addExpense(firstExpense);
-        expenseAccount.addExpense(secondExpense);
+        addExpense(firstExpense);
+        addExpense(secondExpense);
         expenseAccount.remove(firstExpense);
         Assert.assertTrue(compareBigDecimals(secondExpense, expenseAccount.getTotal()));
     }
@@ -66,8 +66,8 @@ public class ExpenseAccountTest {
     public void afterAddingTwoExpensesAndRemovingOneCountShouldBeEqualToOne() {
         BigDecimal firstExpense = new BigDecimal(22.5);
         BigDecimal secondExpense = new BigDecimal(30);
-        expenseAccount.addExpense(firstExpense);
-        expenseAccount.addExpense(secondExpense);
+        addExpense(firstExpense);
+        addExpense(secondExpense);
         expenseAccount.remove(firstExpense);
         Assert.assertEquals(Long.valueOf(1), expenseAccount.getExpenseCount());
     }
@@ -77,12 +77,37 @@ public class ExpenseAccountTest {
         BigDecimal firstExpense = new BigDecimal(22.5);
         BigDecimal secondExpense = new BigDecimal(30);
         BigDecimal thirdExpense = new BigDecimal(114.20);
-        expenseAccount.addExpense(firstExpense);
-        expenseAccount.addExpense(secondExpense);
-        expenseAccount.addExpense(thirdExpense);
+        addExpense(firstExpense);
+        addExpense(secondExpense);
+        addExpense(thirdExpense);
         BigDecimal expenseAccountAverage = expenseAccount.getAverage();
         BigDecimal expectedAverage = firstExpense.add(secondExpense).add(thirdExpense).divide(BigDecimal.valueOf(3), 2, RoundingMode.HALF_UP);
         Assert.assertTrue(compareBigDecimals(expectedAverage, expenseAccountAverage));
+    }
+
+    @Test
+    public void whenAddingAExpenseWithANegativeValueAExceptionShouldBeThrown() {
+        try {
+            addExpense(BigDecimal.valueOf(-23.2));
+            Assert.assertTrue("Exception not Thrown", false);
+        } catch (ExpenseAccount.InvalidExpenseValueException e) {
+            Assert.assertTrue("Exception Thrown", true);
+        }
+    }
+
+    @Test
+    public void whenAddingAExpenseWithANegativeValueTheExceptionMessageShouldShownTheValueThatWasAdded() {
+        try {
+            addExpense(BigDecimal.valueOf(-23.2));
+            Assert.assertTrue("Exception not Thrown", false);
+        } catch (ExpenseAccount.InvalidExpenseValueException e) {
+            String actualMessage = e.getMessage();
+            Assert.assertTrue(actualMessage.contains(Double.toString(-23.2)));
+        }
+    }
+
+    private void addExpense(BigDecimal expenseValue) {
+        this.expenseAccount.addExpense(expenseValue);
     }
 
     private static boolean compareBigDecimals(BigDecimal expected, BigDecimal actual) {
