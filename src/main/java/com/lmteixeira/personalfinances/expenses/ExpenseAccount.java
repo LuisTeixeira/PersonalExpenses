@@ -12,11 +12,11 @@ public class ExpenseAccount {
         return total;
     }
 
-    public void addExpense(BigDecimal expense) {
-        if (expense.compareTo(BigDecimal.ZERO) < 0) {
-            throw new InvalidExpenseValueException("Value " + expense.toPlainString() + " is less than zero");
+    public void addExpense(Expense expense) {
+        if (expense.isLessThanZero()) {
+            throw new InvalidExpenseValueException("Value " + expense.expenseValue.toPlainString() + " is less than zero");
         }
-        total = total.add(expense);
+        total = expense.sum(total);
         expenseCount++;
     }
 
@@ -24,8 +24,8 @@ public class ExpenseAccount {
         return expenseCount;
     }
 
-    public void remove(BigDecimal expense) {
-        total = total.subtract(expense);
+    public void remove(Expense expense) {
+        total = expense.subtractFrom(total);
         expenseCount--;
     }
 

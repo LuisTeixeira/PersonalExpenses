@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Date;
 
 public class ExpenseAccountTest {
 
@@ -30,42 +31,44 @@ public class ExpenseAccountTest {
 
     @Test
     public void totalAfterAddingOneExpenseShouldBeEqualToExpense() {
-        addExpense(BigDecimal.valueOf(22.5d));
+        Expense expense = createExpense(BigDecimal.valueOf(22.5d), "Test Description", new Date().getTime());
+        addExpense(expense);
         BigDecimal total = expenseAccount.getTotal();
         Assert.assertTrue(compareBigDecimals(BigDecimal.valueOf(22.5d), total));
     }
 
     @Test
     public void afterAddingOneExpenseCountShouldBeEqualToOne() {
-        addExpense(BigDecimal.valueOf(22.5d));
+        Expense expense = createExpense(BigDecimal.valueOf(22.5d), "Test Description", new Date().getTime());
+        addExpense(expense);
         Long expensesCount = expenseAccount.getExpenseCount();
         Assert.assertEquals(Long.valueOf(1), expensesCount);
     }
 
     @Test
     public void afterAddingTwoExpensesTheTotalShouldBeSumOfExpenses() {
-        BigDecimal firstExpense = new BigDecimal(22.5);
-        BigDecimal secondExpense = new BigDecimal(30);
+        Expense firstExpense = createExpense(BigDecimal.valueOf(22.5d), "Test Description", new Date().getTime());
+        Expense secondExpense = createExpense(BigDecimal.valueOf(30), "Test Description", new Date().getTime());
         addExpense(firstExpense);
         addExpense(secondExpense);
         BigDecimal total = expenseAccount.getTotal();
-        Assert.assertTrue(compareBigDecimals(firstExpense.add(secondExpense), total));
+        Assert.assertTrue(compareBigDecimals(firstExpense.expenseValue.add(secondExpense.expenseValue), total));
     }
 
     @Test
     public void afterAddingTwoExpensesAndRemovingOneTotalShouldBeEqualToKeptExpense() {
-        BigDecimal firstExpense = new BigDecimal(22.5);
-        BigDecimal secondExpense = new BigDecimal(30);
+        Expense firstExpense = createExpense(BigDecimal.valueOf(22.5d), "Test Description", new Date().getTime());
+        Expense secondExpense = createExpense(BigDecimal.valueOf(30), "Test Description", new Date().getTime());
         addExpense(firstExpense);
         addExpense(secondExpense);
         expenseAccount.remove(firstExpense);
-        Assert.assertTrue(compareBigDecimals(secondExpense, expenseAccount.getTotal()));
+        Assert.assertTrue(compareBigDecimals(secondExpense.expenseValue, expenseAccount.getTotal()));
     }
 
     @Test
     public void afterAddingTwoExpensesAndRemovingOneCountShouldBeEqualToOne() {
-        BigDecimal firstExpense = new BigDecimal(22.5);
-        BigDecimal secondExpense = new BigDecimal(30);
+        Expense firstExpense = createExpense(BigDecimal.valueOf(22.5d), "Test Description", new Date().getTime());
+        Expense secondExpense = createExpense(BigDecimal.valueOf(30), "Test Description", new Date().getTime());
         addExpense(firstExpense);
         addExpense(secondExpense);
         expenseAccount.remove(firstExpense);
@@ -74,21 +77,22 @@ public class ExpenseAccountTest {
 
     @Test
     public void afterAddThreeExpensesAverageShouldBeAverageOfValueOfThreeExpenses() {
-        BigDecimal firstExpense = new BigDecimal(22.5);
-        BigDecimal secondExpense = new BigDecimal(30);
-        BigDecimal thirdExpense = new BigDecimal(114.20);
+        Expense firstExpense = createExpense(BigDecimal.valueOf(22.5d), "Test Description", new Date().getTime());
+        Expense secondExpense = createExpense(BigDecimal.valueOf(30), "Test Description", new Date().getTime());
+        Expense thirdExpense = createExpense(BigDecimal.valueOf(114.20), "Test Description", new Date().getTime());
         addExpense(firstExpense);
         addExpense(secondExpense);
         addExpense(thirdExpense);
         BigDecimal expenseAccountAverage = expenseAccount.getAverage();
-        BigDecimal expectedAverage = firstExpense.add(secondExpense).add(thirdExpense).divide(BigDecimal.valueOf(3), 2, RoundingMode.HALF_UP);
+        BigDecimal expectedAverage = firstExpense.expenseValue.add(secondExpense.expenseValue).add(thirdExpense.expenseValue).divide(BigDecimal.valueOf(3), 2, RoundingMode.HALF_UP);
         Assert.assertTrue(compareBigDecimals(expectedAverage, expenseAccountAverage));
     }
 
     @Test
     public void whenAddingAExpenseWithANegativeValueAExceptionShouldBeThrown() {
         try {
-            addExpense(BigDecimal.valueOf(-23.2));
+            Expense expense = createExpense(BigDecimal.valueOf(-22.5d), "Test Description", new Date().getTime());
+            addExpense(expense);
             Assert.assertTrue("Exception not Thrown", false);
         } catch (ExpenseAccount.InvalidExpenseValueException e) {
             Assert.assertTrue("Exception Thrown", true);
@@ -98,16 +102,21 @@ public class ExpenseAccountTest {
     @Test
     public void whenAddingAExpenseWithANegativeValueTheExceptionMessageShouldShownTheValueThatWasAdded() {
         try {
-            addExpense(BigDecimal.valueOf(-23.2));
+            Expense expense = createExpense(BigDecimal.valueOf(-22.5d), "Test Description", new Date().getTime());
+            addExpense(expense);
             Assert.assertTrue("Exception not Thrown", false);
         } catch (ExpenseAccount.InvalidExpenseValueException e) {
             String actualMessage = e.getMessage();
-            Assert.assertTrue(actualMessage.contains(Double.toString(-23.2)));
+            Assert.assertTrue(actualMessage.contains(Double.toString(-22.5d)));
         }
     }
 
-    private void addExpense(BigDecimal expenseValue) {
-        this.expenseAccount.addExpense(expenseValue);
+    private void addExpense(Expense expense) {
+        this.expenseAccount.addExpense(expense);
+    }
+
+    private Expense createExpense(BigDecimal expenseValue, String description, Long timestamp) {
+        return new Expense(expenseValue, description, timestamp);
     }
 
     private static boolean compareBigDecimals(BigDecimal expected, BigDecimal actual) {
