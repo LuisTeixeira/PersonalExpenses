@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 public class Expense {
 
-    protected BigDecimal expenseValue;
+    private BigDecimal expenseValue;
     private String description;
     private Long timestamp;
 
@@ -22,7 +22,19 @@ public class Expense {
         return expenseValue.add(valueToSum);
     }
 
+    public BigDecimal sum(Expense expenseToSum) {
+        return expenseValue.add(expenseToSum.expenseValue);
+    }
+
     public BigDecimal subtractFrom(BigDecimal valueToSubtractFrom) {
         return valueToSubtractFrom.subtract(this.expenseValue);
+    }
+
+    public Boolean isEqualTo(BigDecimal valueToCompare) {
+        return expenseValue.compareTo(valueToCompare) == 0;
+    }
+
+    public String getValueStringRepresentation() {
+        return this.expenseValue.toPlainString();
     }
 }

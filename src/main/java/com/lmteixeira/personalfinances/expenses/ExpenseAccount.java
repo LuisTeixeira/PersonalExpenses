@@ -14,7 +14,7 @@ public class ExpenseAccount {
 
     public void addExpense(Expense expense) {
         if (expense.isLessThanZero()) {
-            throw new InvalidExpenseValueException("Value " + expense.expenseValue.toPlainString() + " is less than zero");
+            throw new InvalidExpenseValueException("Value " + expense.getValueStringRepresentation() + " is less than zero");
         }
         total = expense.sum(total);
         expenseCount++;

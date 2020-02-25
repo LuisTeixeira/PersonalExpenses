@@ -52,7 +52,7 @@ public class ExpenseAccountTest {
         addExpense(firstExpense);
         addExpense(secondExpense);
         BigDecimal total = expenseAccount.getTotal();
-        Assert.assertTrue(compareBigDecimals(firstExpense.expenseValue.add(secondExpense.expenseValue), total));
+        Assert.assertTrue(compareBigDecimals(firstExpense.sum(secondExpense), total));
     }
 
     @Test
@@ -62,7 +62,7 @@ public class ExpenseAccountTest {
         addExpense(firstExpense);
         addExpense(secondExpense);
         expenseAccount.remove(firstExpense);
-        Assert.assertTrue(compareBigDecimals(secondExpense.expenseValue, expenseAccount.getTotal()));
+        Assert.assertTrue(secondExpense.isEqualTo(expenseAccount.getTotal()));
     }
 
     @Test
@@ -84,7 +84,7 @@ public class ExpenseAccountTest {
         addExpense(secondExpense);
         addExpense(thirdExpense);
         BigDecimal expenseAccountAverage = expenseAccount.getAverage();
-        BigDecimal expectedAverage = firstExpense.expenseValue.add(secondExpense.expenseValue).add(thirdExpense.expenseValue).divide(BigDecimal.valueOf(3), 2, RoundingMode.HALF_UP);
+        BigDecimal expectedAverage = thirdExpense.sum(firstExpense.sum(secondExpense)).divide(BigDecimal.valueOf(3), 2, RoundingMode.HALF_UP);
         Assert.assertTrue(compareBigDecimals(expectedAverage, expenseAccountAverage));
     }
 
