@@ -37,4 +37,8 @@ public class Expense {
     public String getValueStringRepresentation() {
         return this.expenseValue.toPlainString();
     }
+
+    public String getDescriptionStringRepresentation() {
+        return description;
+    }
 }

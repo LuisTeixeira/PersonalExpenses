@@ -6,7 +6,10 @@ import org.junit.Test;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 public class ExpenseAccountTest {
 
@@ -109,6 +112,18 @@ public class ExpenseAccountTest {
             String actualMessage = e.getMessage();
             Assert.assertTrue(actualMessage.contains(Double.toString(-22.5d)));
         }
+    }
+
+    @Test
+    public void getExpensesDescriptionsShouldReturnTheDescriptionOfAllAddedExpenses() {
+        Expense firstExpense = createExpense(BigDecimal.valueOf(22.5d), "Test Description1", new Date().getTime());
+        addExpense(firstExpense);
+        Expense secondExpense = createExpense(BigDecimal.valueOf(30), "Test Description2", new Date().getTime());
+        addExpense(secondExpense);
+        Expense thirdExpense = createExpense(BigDecimal.valueOf(114.20), "Test Description3", new Date().getTime());
+        addExpense(thirdExpense);
+        List<String> expenseDescriptions = expenseAccount.getExpenseDescriptions();
+        Assert.assertTrue(expenseDescriptions.containsAll(Arrays.asList(new String[] {"Test Description1", "Test Description2", "Test Description3"})));
     }
 
     private void addExpense(Expense expense) {
