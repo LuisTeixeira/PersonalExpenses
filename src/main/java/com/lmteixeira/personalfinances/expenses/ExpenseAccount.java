@@ -36,8 +36,9 @@ public class ExpenseAccount {
         return total.divide( BigDecimal.valueOf( expenses.size() ), 2, RoundingMode.HALF_UP );
     }
 
+
     public List<String> getExpenseDescriptions() {
-        return expenses.stream().map( expense -> expense.getDescriptionStringRepresentation() ).collect( Collectors.toList() );
+        return expenses.stream().map(expense -> expense.getDescriptionStringRepresentation()).collect(Collectors.toList());
     }
 
     public class InvalidExpenseValueException extends RuntimeException {

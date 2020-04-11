@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -128,7 +129,7 @@ public class ExpenseAccountTest {
     }
 
     private void addExpense(Expense expense) {
-        this.expenseAccount.addExpense( expense );
+        this.expenseAccount.addExpense(expense);
     }
 
     private static boolean compareBigDecimals(BigDecimal expected, BigDecimal actual) {
