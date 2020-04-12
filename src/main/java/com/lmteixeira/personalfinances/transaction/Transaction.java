@@ -1,14 +1,14 @@
-package com.lmteixeira.personalfinances.expenses;
+package com.lmteixeira.personalfinances.transaction;
 
 import java.math.BigDecimal;
 
-public class Expense {
+public class Transaction {
 
     private BigDecimal expenseValue;
     private String description;
     private Long timestamp;
 
-    public Expense(BigDecimal expenseValue, String description, Long timestamp) {
+    public Transaction(BigDecimal expenseValue, String description, Long timestamp) {
         this.expenseValue = expenseValue;
         this.description = description;
         this.timestamp = timestamp;
@@ -22,7 +22,7 @@ public class Expense {
         return expenseValue.add( valueToSum );
     }
 
-    public BigDecimal sum(Expense expenseToSum) {
+    public BigDecimal sum(Transaction expenseToSum) {
         return expenseValue.add( expenseToSum.expenseValue );
     }
 
