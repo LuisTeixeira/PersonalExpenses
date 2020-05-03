@@ -1,5 +1,6 @@
 package com.lmteixeira.personalfinances.expenses;
 
+import com.lmteixeira.personalfinances.expenses.factory.TransactionAccountFactory;
 import com.lmteixeira.personalfinances.expenses.impl.TransactionAccountImpl;
 import com.lmteixeira.personalfinances.transaction.Transaction;
 import com.lmteixeira.personalfinances.transaction.factory.TransactionFactory;
@@ -23,7 +24,7 @@ public class TransactionAccountTest {
 
     @Before
     public void setup() {
-        expenseAccount = new TransactionAccountImpl();
+        expenseAccount = new TransactionAccountFactory().createExpenseAccount();
         transactionFactory = new TransactionFactory();
     }
 
