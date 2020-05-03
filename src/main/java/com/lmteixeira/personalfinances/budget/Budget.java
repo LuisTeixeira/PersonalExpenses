@@ -18,4 +18,6 @@ public interface Budget {
     BigDecimal getForeseenIncomeTotal();
 
     boolean isNegative();
+
+    BigDecimal total();
 }

@@ -46,4 +46,9 @@ public class BudgetImpl implements Budget {
     public boolean isNegative() {
         return getForeseenIncomeTotal().compareTo(getForeseenExpensesTotal()) < 0;
     }
+
+    @Override
+    public BigDecimal total() {
+        return getForeseenIncomeTotal().subtract(getForeseenExpensesTotal());
+    }
 }
