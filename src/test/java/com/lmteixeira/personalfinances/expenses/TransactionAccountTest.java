@@ -1,5 +1,6 @@
 package com.lmteixeira.personalfinances.expenses;
 
+import com.lmteixeira.personalfinances.expenses.impl.TransactionAccountImpl;
 import com.lmteixeira.personalfinances.transaction.Transaction;
 import com.lmteixeira.personalfinances.transaction.factory.TransactionFactory;
 import com.lmteixeira.personalfinances.utilities.BigDecimalsUtilities;
@@ -22,7 +23,7 @@ public class TransactionAccountTest {
 
     @Before
     public void setup() {
-        expenseAccount = new TransactionAccount();
+        expenseAccount = new TransactionAccountImpl();
         transactionFactory = new TransactionFactory();
     }
 
@@ -103,7 +104,7 @@ public class TransactionAccountTest {
             Transaction expense = transactionFactory.createTransaction( BigDecimal.valueOf( -22.5d ), "Test Description", new Date().getTime() );
             addExpense( expense );
             Assert.fail( "Exception not Thrown" );
-        } catch ( TransactionAccount.InvalidTransactionValueException e ) {
+        } catch ( TransactionAccountImpl.InvalidTransactionValueException e ) {
             assertTrue( "Exception Thrown", true );
         }
     }
@@ -114,7 +115,7 @@ public class TransactionAccountTest {
             Transaction expense = transactionFactory.createTransaction( BigDecimal.valueOf( -22.5d ), "Test Description", new Date().getTime() );
             addExpense( expense );
             Assert.fail( "Exception not Thrown" );
-        } catch ( TransactionAccount.InvalidTransactionValueException e ) {
+        } catch ( TransactionAccountImpl.InvalidTransactionValueException e ) {
             String actualMessage = e.getMessage();
             assertTrue( actualMessage.contains( Double.toString( -22.5d ) ) );
         }

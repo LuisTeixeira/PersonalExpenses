@@ -2,14 +2,15 @@ package com.lmteixeira.personalfinances.budget.impl;
 
 import com.lmteixeira.personalfinances.budget.Budget;
 import com.lmteixeira.personalfinances.expenses.TransactionAccount;
+import com.lmteixeira.personalfinances.expenses.impl.TransactionAccountImpl;
 import com.lmteixeira.personalfinances.transaction.Transaction;
 
 import java.math.BigDecimal;
 
 public class BudgetImpl implements Budget {
 
-    TransactionAccount foreseenExpenses = new TransactionAccount();
-    TransactionAccount foreseenIncome = new TransactionAccount();
+    TransactionAccount foreseenExpenses = new TransactionAccountImpl();
+    TransactionAccount foreseenIncome = new TransactionAccountImpl();
 
     @Override
     public Long getForeseenExpensesCount() {
