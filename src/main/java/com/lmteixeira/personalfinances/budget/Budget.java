@@ -16,4 +16,6 @@ public interface Budget {
     Long getForeseenIncomeCount();
 
     BigDecimal getForeseenIncomeTotal();
+
+    boolean isNegative();
 }

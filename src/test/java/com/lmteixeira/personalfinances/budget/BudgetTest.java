@@ -67,6 +67,36 @@ public class BudgetTest {
         Assert.assertTrue( BigDecimalsUtilities.compareBigDecimals( BigDecimal.valueOf( 22.5d ), total ) );
     }
 
+    @Test
+    public void whenIncomeValueIsLargerThanExpensesValueBudgetIsNotNegative() {
+        Transaction income = transactionFactory.createTransaction( BigDecimal.valueOf( 22.5d ), "Test Description", new Date().getTime() );
+        budget.addForeseenIncome(income);
+        Transaction expense = transactionFactory.createTransaction( BigDecimal.valueOf( 20d ), "Test Description", new Date().getTime() );
+        budget.addForeseenExpense(expense);
+
+        Assert.assertFalse(budget.isNegative());
+    }
+
+    @Test
+    public void whenIncomeValueIsTheSameAsExpensesValueBudgetIsNotNegative() {
+        Transaction income = transactionFactory.createTransaction( BigDecimal.valueOf( 20d ), "Test Description", new Date().getTime() );
+        budget.addForeseenIncome(income);
+        Transaction expense = transactionFactory.createTransaction( BigDecimal.valueOf( 20d ), "Test Description", new Date().getTime() );
+        budget.addForeseenExpense(expense);
+
+        Assert.assertFalse(budget.isNegative());
+    }
+
+    @Test
+    public void whenIncomeValueIsSmallerThanExpensesValueBudgetIsNegative() {
+        Transaction income = transactionFactory.createTransaction( BigDecimal.valueOf( 20d ), "Test Description", new Date().getTime() );
+        budget.addForeseenIncome(income);
+        Transaction expense = transactionFactory.createTransaction( BigDecimal.valueOf( 22.5d ), "Test Description", new Date().getTime() );
+        budget.addForeseenExpense(expense);
+
+        Assert.assertTrue(budget.isNegative());
+    }
+
     private void addForeseenExpense(Transaction expense) {
         this.budget.addForeseenExpense( expense );
     }
