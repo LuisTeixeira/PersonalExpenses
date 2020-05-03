@@ -1,4 +1,4 @@
-package com.lmteixeira.personalfinances.expenses;
+package com.lmteixeira.personalfinances.account;
 
 import com.lmteixeira.personalfinances.transaction.Transaction;
 

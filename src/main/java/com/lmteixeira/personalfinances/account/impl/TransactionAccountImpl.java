@@ -1,8 +1,7 @@
-package com.lmteixeira.personalfinances.expenses.impl;
+package com.lmteixeira.personalfinances.account.impl;
 
-import com.lmteixeira.personalfinances.expenses.TransactionAccount;
+import com.lmteixeira.personalfinances.account.TransactionAccount;
 import com.lmteixeira.personalfinances.transaction.Transaction;
-import com.lmteixeira.personalfinances.transaction.impl.TransactionImpl;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

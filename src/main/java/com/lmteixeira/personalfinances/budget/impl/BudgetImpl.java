@@ -1,8 +1,8 @@
 package com.lmteixeira.personalfinances.budget.impl;
 
 import com.lmteixeira.personalfinances.budget.Budget;
-import com.lmteixeira.personalfinances.expenses.TransactionAccount;
-import com.lmteixeira.personalfinances.expenses.impl.TransactionAccountImpl;
+import com.lmteixeira.personalfinances.account.TransactionAccount;
+import com.lmteixeira.personalfinances.account.impl.TransactionAccountImpl;
 import com.lmteixeira.personalfinances.transaction.Transaction;
 
 import java.math.BigDecimal;

@@ -1,7 +1,7 @@
-package com.lmteixeira.personalfinances.expenses;
+package com.lmteixeira.personalfinances.account;
 
-import com.lmteixeira.personalfinances.expenses.factory.TransactionAccountFactory;
-import com.lmteixeira.personalfinances.expenses.impl.TransactionAccountImpl;
+import com.lmteixeira.personalfinances.account.factory.TransactionAccountFactory;
+import com.lmteixeira.personalfinances.account.impl.TransactionAccountImpl;
 import com.lmteixeira.personalfinances.transaction.Transaction;
 import com.lmteixeira.personalfinances.transaction.factory.TransactionFactory;
 import com.lmteixeira.personalfinances.utilities.BigDecimalsUtilities;
