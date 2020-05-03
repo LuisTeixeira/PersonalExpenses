@@ -1,7 +1,7 @@
 package com.lmteixeira.personalfinances.expenses;
 
 import com.lmteixeira.personalfinances.transaction.Transaction;
-import com.lmteixeira.personalfinances.transaction.TransactionFactory;
+import com.lmteixeira.personalfinances.transaction.factory.TransactionFactory;
 import com.lmteixeira.personalfinances.utilities.BigDecimalsUtilities;
 import org.junit.Assert;
 import org.junit.Before;

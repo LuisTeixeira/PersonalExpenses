@@ -1,44 +1,23 @@
 package com.lmteixeira.personalfinances.transaction;
 
+import com.lmteixeira.personalfinances.transaction.impl.TransactionImpl;
+
 import java.math.BigDecimal;
 
-public class Transaction {
+public interface Transaction {
+    Boolean isLessThanZero();
 
-    private BigDecimal expenseValue;
-    private String description;
-    private Long timestamp;
+    BigDecimal getExpenseValue();
 
-    public Transaction(BigDecimal expenseValue, String description, Long timestamp) {
-        this.expenseValue = expenseValue;
-        this.description = description;
-        this.timestamp = timestamp;
-    }
+    BigDecimal sum(BigDecimal valueToSum);
 
-    public Boolean isLessThanZero() {
-        return this.expenseValue.compareTo( BigDecimal.ZERO ) < 0;
-    }
+    BigDecimal sum(Transaction expenseToSum);
 
-    public BigDecimal sum(BigDecimal valueToSum) {
-        return expenseValue.add( valueToSum );
-    }
+    BigDecimal subtractFrom(BigDecimal valueToSubtractFrom);
 
-    public BigDecimal sum(Transaction expenseToSum) {
-        return expenseValue.add( expenseToSum.expenseValue );
-    }
+    Boolean isEqualTo(BigDecimal valueToCompare);
 
-    public BigDecimal subtractFrom(BigDecimal valueToSubtractFrom) {
-        return valueToSubtractFrom.subtract( this.expenseValue );
-    }
+    String getValueStringRepresentation();
 
-    public Boolean isEqualTo(BigDecimal valueToCompare) {
-        return expenseValue.compareTo( valueToCompare ) == 0;
-    }
-
-    public String getValueStringRepresentation() {
-        return this.expenseValue.toPlainString();
-    }
-
-    public String getDescriptionStringRepresentation() {
-        return description;
-    }
+    String getDescriptionStringRepresentation();
 }

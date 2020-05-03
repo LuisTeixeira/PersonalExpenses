@@ -1,7 +1,9 @@
 package com.lmteixeira.personalfinances.budget;
 
+import com.lmteixeira.personalfinances.budget.impl.BudgetImpl;
 import com.lmteixeira.personalfinances.transaction.Transaction;
-import com.lmteixeira.personalfinances.transaction.TransactionFactory;
+import com.lmteixeira.personalfinances.transaction.impl.TransactionImpl;
+import com.lmteixeira.personalfinances.transaction.factory.TransactionFactory;
 import com.lmteixeira.personalfinances.utilities.BigDecimalsUtilities;
 import org.junit.Assert;
 import org.junit.Before;
@@ -17,7 +19,7 @@ public class BudgetTest {
 
     @Before
     public void setup() {
-        budget = new Budget();
+        budget = new BudgetImpl();
         transactionFactory = new TransactionFactory();
     }
 

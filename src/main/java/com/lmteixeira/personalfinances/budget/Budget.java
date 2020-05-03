@@ -1,36 +1,19 @@
 package com.lmteixeira.personalfinances.budget;
 
-import com.lmteixeira.personalfinances.expenses.TransactionAccount;
 import com.lmteixeira.personalfinances.transaction.Transaction;
 
 import java.math.BigDecimal;
 
-public class Budget {
+public interface Budget {
+    Long getForeseenExpensesCount();
 
-    TransactionAccount foreseenExpenses = new TransactionAccount();
-    TransactionAccount foreseenIncome = new TransactionAccount();
+    void addForeseenExpense(Transaction expense);
 
-    public Long getForeseenExpensesCount() {
-        return foreseenExpenses.getTransactionCount();
-    }
+    BigDecimal getForeseenExpensesTotal();
 
-    public void addForeseenExpense(Transaction expense) {
-        foreseenExpenses.addTransaction( expense );
-    }
+    void addForeseenIncome(Transaction income);
 
-    public BigDecimal getForeseenExpensesTotal() {
-        return foreseenExpenses.getTotal();
-    }
+    Long getForeseenIncomeCount();
 
-    public void addForeseenIncome(Transaction income) {
-        foreseenIncome.addTransaction( income );
-    }
-
-    public Long getForeseenIncomeCount() {
-        return foreseenIncome.getTransactionCount();
-    }
-
-    public BigDecimal getForeseenIncomeTotal() {
-        return foreseenIncome.getTotal();
-    }
+    BigDecimal getForeseenIncomeTotal();
 }
