@@ -1,8 +1,10 @@
 package com.lmteixeira.personalfinances.usecases;
 
+import com.lmteixeira.personalfinances.domain.user.User;
 import com.lmteixeira.personalfinances.usecases.budget.CreateBudget;
 import com.lmteixeira.personalfinances.usecases.budget.FindAllBudgets;
 import com.lmteixeira.personalfinances.usecases.config.TestConfig;
+import com.lmteixeira.personalfinances.usecases.exceptions.UserNotFoundException;
 import com.lmteixeira.personalfinances.usecases.user.CreateUser;
 import org.junit.Assert;
 import org.junit.Before;
@@ -35,6 +37,19 @@ public class BudgetUseCaseTests {
         createBudget.createBudget(USER_EMAIL);
         FindAllBudgets findAllBudgets = config.findAllBudgets();
         Assert.assertEquals(1, findAllBudgets.findAllBudgets().size());
+    }
+
+    @Test
+    public void creatingABudgetForAnNonExistingUserShouldThrowAnException() {
+        boolean exceptionThrown = false;
+        try {
+            createBudget.createBudget(USER_EMAIL);
+        } catch (UserNotFoundException ex) {
+            exceptionThrown = true;
+        }
+        Assert.assertTrue(exceptionThrown);
+
+
     }
 
 }
