@@ -35,6 +35,18 @@ public class TransactionAccountTest {
     }
 
     @Test
+    public void ifNoTransactionIsAddedExpenseAccountShouldBeEmpty() {
+        Assert.assertTrue(expenseAccount.isEmpty());
+    }
+
+    @Test
+    public void afterTransactionsAreAddedExpenseAccountShouldBeNotEmpty() {
+        Transaction expense = transactionFactory.createTransaction(BigDecimal.valueOf( 22.5d ), "Test Description", new Date().getTime());
+        addExpense(expense);
+        Assert.assertFalse(expenseAccount.isEmpty());
+    }
+
+    @Test
     public void newAccountShouldHaveZeroExpenses() {
         Long expensesCount = expenseAccount.getTransactionCount();
         Assert.assertEquals( Long.valueOf( 0 ), expensesCount );

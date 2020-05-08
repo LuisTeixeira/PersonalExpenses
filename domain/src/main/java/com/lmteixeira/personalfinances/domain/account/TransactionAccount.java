@@ -17,4 +17,6 @@ public interface TransactionAccount {
     BigDecimal getAverage();
 
     List<String> getTransactionDescriptions();
+
+    boolean isEmpty();
 }

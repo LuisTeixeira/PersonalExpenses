@@ -34,6 +34,11 @@ public class TransactionAccountImpl implements TransactionAccount {
     }
 
     @Override
+    public boolean isEmpty() {
+        return expenses.size() == 0;
+    }
+
+    @Override
     public void remove(Transaction expense) {
         total = expense.subtractFrom( total );
         expenses.remove( expense );

@@ -1,15 +1,25 @@
 package com.lmteixeira.personalfinances.domain.user;
 
+import com.lmteixeira.personalfinances.domain.utilities.BigDecimalsUtilities;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
+import java.math.BigDecimal;
+
 public class UserTest {
+    private static final String USER_EMAIL = "test@gmail.com";
+
+    private User user;
+
+    @Before
+    public void setup() {
+        user = new User(USER_EMAIL);
+    }
 
     @Test
     public void userCreatedWithEmailShouldHaveSameEmailAsStringRepresentation() {
-        String userEmail = "test@gmail.com";
-        User user = new User(userEmail);
-        Assert.assertEquals(userEmail, user.toString());
+        Assert.assertEquals(USER_EMAIL, user.toString());
     }
 
     @Test
@@ -26,5 +36,6 @@ public class UserTest {
             Assert.assertTrue("Invalid email with index " + i + " failed", exceptionThrown);
         }
     }
+
 
 }
