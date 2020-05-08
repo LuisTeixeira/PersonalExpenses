@@ -1,4 +1,4 @@
-package com.lmteixeira.personalfinances.usecases;
+package com.lmteixeira.personalfinances.usecases.user;
 
 import com.lmteixeira.personalfinances.domain.user.User;
 import com.lmteixeira.personalfinances.usecases.interfaces.UserRepository;

@@ -1,6 +1,7 @@
 package com.lmteixeira.personalfinances.usecases.repository;
 
 import com.lmteixeira.personalfinances.domain.user.User;
+import com.lmteixeira.personalfinances.usecases.interfaces.EntityNotFoundException;
 import com.lmteixeira.personalfinances.usecases.interfaces.UserRepository;
 
 import java.util.ArrayList;
@@ -18,6 +19,16 @@ public class TestUserRepository implements UserRepository {
     @Override
     public List<User> all() {
         return new ArrayList<>(users);
+    }
+
+    @Override
+    public User findUserByEmail(String email) throws EntityNotFoundException {
+        for (User user : users) {
+            if (user.toString().equals(email)) {
+                return user;
+            }
+        }
+        throw new EntityNotFoundException("User with email " + email + " not found");
     }
 
 }

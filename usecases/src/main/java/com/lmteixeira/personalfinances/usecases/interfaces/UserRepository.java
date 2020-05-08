@@ -9,4 +9,5 @@ public interface UserRepository {
 
     List<User> all();
 
+    User findUserByEmail(String email) throws EntityNotFoundException;
 }
