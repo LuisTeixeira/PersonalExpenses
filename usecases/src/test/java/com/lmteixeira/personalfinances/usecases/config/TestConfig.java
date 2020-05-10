@@ -1,6 +1,8 @@
 package com.lmteixeira.personalfinances.usecases.config;
 
+import com.lmteixeira.personalfinances.usecases.budget.FindUserBudget;
 import com.lmteixeira.personalfinances.usecases.budget.CreateBudget;
+import com.lmteixeira.personalfinances.usecases.budget.GetExpensesCount;
 import com.lmteixeira.personalfinances.usecases.budget.FindAllBudgets;
 import com.lmteixeira.personalfinances.usecases.interfaces.BudgetRepository;
 import com.lmteixeira.personalfinances.usecases.interfaces.UserRepository;
@@ -34,4 +36,13 @@ public class TestConfig {
     public FindUserByEmail findUserByEmail() {
         return new FindUserByEmail(userRepository);
     }
+
+    public FindUserBudget findUserBudget() {
+        return new FindUserBudget(budgetRepository);
+    }
+
+    public GetExpensesCount findAllBudgetExpenses() {
+        return new GetExpensesCount(budgetRepository);
+    }
+
 }
