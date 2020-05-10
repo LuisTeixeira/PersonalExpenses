@@ -59,7 +59,7 @@ jobs:
           name: Save test reports
           command: |
             mkdir -p test-reports/
-            find . -type f -regex ".*/build/repors/tests/.*html" -exec cp -R {} test-reports/ \;
+            find . -type f -regex ".*/build/repors/tests/test/.*" -exec cp -R {} test-reports/ \;
           when: always
 
       - store_test_results:
