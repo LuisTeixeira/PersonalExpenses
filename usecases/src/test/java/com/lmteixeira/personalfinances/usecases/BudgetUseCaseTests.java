@@ -89,6 +89,17 @@ public class BudgetUseCaseTests {
     }
 
     @Test
+    public void addingAnExpenseShouldThrowExceptionWhenThereIsNoBudgetCreatedForUserWithSpecifiedEmail() {
+        boolean exceptionThrown = false;
+        try {
+            addExpense.addExpense(USER_EMAIL, "Test expense", BigDecimal.valueOf(23d));
+        } catch (BudgetNotFoundException e) {
+            exceptionThrown = true;
+        }
+        Assert.assertTrue(exceptionThrown);
+    }
+
+    @Test
     public void getBudgetExpensesCountShouldThrowAnExceptionWhenThereIsNoBudgetForUserWithSpecifiedEmail() {
         boolean exceptionThrown = false;
         try {
