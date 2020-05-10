@@ -3,10 +3,7 @@ package com.lmteixeira.personalfinances.usecases;
 import com.lmteixeira.personalfinances.domain.budget.Budget;
 import com.lmteixeira.personalfinances.domain.transaction.Transaction;
 import com.lmteixeira.personalfinances.domain.transaction.factory.TransactionFactory;
-import com.lmteixeira.personalfinances.usecases.budget.CreateBudget;
-import com.lmteixeira.personalfinances.usecases.budget.FindUserBudget;
-import com.lmteixeira.personalfinances.usecases.budget.GetExpensesCount;
-import com.lmteixeira.personalfinances.usecases.budget.FindAllBudgets;
+import com.lmteixeira.personalfinances.usecases.budget.*;
 import com.lmteixeira.personalfinances.usecases.config.TestConfig;
 import com.lmteixeira.personalfinances.usecases.exceptions.BudgetNotFoundException;
 import com.lmteixeira.personalfinances.usecases.exceptions.UserNotFoundException;
@@ -27,7 +24,7 @@ public class BudgetUseCaseTests {
     private CreateBudget createBudget;
     private CreateUser createUser;
     private GetExpensesCount getBudgetExpensesCount;
-    private TransactionFactory transactionFactory;
+    private AddExpense addExpense;
 
     @Before
     public void setup() {
@@ -37,7 +34,7 @@ public class BudgetUseCaseTests {
         createBudget = config.createBudget();
         findUserBudget = config.findUserBudget();
         getBudgetExpensesCount = config.findAllBudgetExpenses();
-        transactionFactory = new TransactionFactory();
+        addExpense = config.addExpense();
     }
 
     @Test
@@ -86,9 +83,7 @@ public class BudgetUseCaseTests {
     public void afterAddingAnExpenseToTheBudgetGetBudgetExpensesCountShouldReturnAListContainingTheAddedExpense() {
         createUser.create(USER_EMAIL);
         createBudget.createBudget(USER_EMAIL);
-        Budget budget = findUserBudget.findUserBudget(USER_EMAIL);
-        Transaction expense = transactionFactory.createTransaction(BigDecimal.valueOf(23d), "Test expense", new Date().getTime());
-        budget.addForeseenExpense(expense);
+        addExpense.addExpense(USER_EMAIL, "Test expense", BigDecimal.valueOf(23d));
         Long budgetExpensesCount = getBudgetExpensesCount.getBudgetExpensesCount(USER_EMAIL);
         Assert.assertEquals(Long.valueOf(1), budgetExpensesCount);
     }
@@ -102,6 +97,11 @@ public class BudgetUseCaseTests {
             exceptionThrown = true;
         }
         Assert.assertTrue(exceptionThrown);
+    }
+
+    @Test
+    public void findAllExpensesInBudgetShouldReturnAListWithDescriptionOfAllExistingExpenses() {
+
     }
 
 }

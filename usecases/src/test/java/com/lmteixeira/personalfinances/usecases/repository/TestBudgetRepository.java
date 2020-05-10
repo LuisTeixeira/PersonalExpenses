@@ -40,4 +40,9 @@ public class TestBudgetRepository implements BudgetRepository {
         }
         throw new EntityNotFoundException("No budget for user with email " + userEmail + " found");
     }
+
+    @Override
+    public void save(Budget budget) {
+        // Don't need to do anything since this mock repository is a map and only stores a pointer to the object
+    }
 }

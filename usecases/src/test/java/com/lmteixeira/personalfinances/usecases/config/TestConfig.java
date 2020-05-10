@@ -1,9 +1,6 @@
 package com.lmteixeira.personalfinances.usecases.config;
 
-import com.lmteixeira.personalfinances.usecases.budget.FindUserBudget;
-import com.lmteixeira.personalfinances.usecases.budget.CreateBudget;
-import com.lmteixeira.personalfinances.usecases.budget.GetExpensesCount;
-import com.lmteixeira.personalfinances.usecases.budget.FindAllBudgets;
+import com.lmteixeira.personalfinances.usecases.budget.*;
 import com.lmteixeira.personalfinances.usecases.interfaces.BudgetRepository;
 import com.lmteixeira.personalfinances.usecases.interfaces.UserRepository;
 import com.lmteixeira.personalfinances.usecases.repository.TestBudgetRepository;
@@ -45,4 +42,7 @@ public class TestConfig {
         return new GetExpensesCount(budgetRepository);
     }
 
+    public AddExpense addExpense() {
+        return new AddExpense(budgetRepository);
+    }
 }
