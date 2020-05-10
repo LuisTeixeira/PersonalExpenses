@@ -1,7 +1,7 @@
 package com.lmteixeira.personalfinances.usecases.repository;
 
 import com.lmteixeira.personalfinances.domain.user.User;
-import com.lmteixeira.personalfinances.usecases.interfaces.EntityNotFoundException;
+import com.lmteixeira.personalfinances.usecases.interfaces.exception.EntityNotFoundException;
 import com.lmteixeira.personalfinances.usecases.interfaces.UserRepository;
 
 import java.util.ArrayList;

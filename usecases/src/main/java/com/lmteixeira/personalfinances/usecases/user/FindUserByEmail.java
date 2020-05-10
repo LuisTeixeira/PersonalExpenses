@@ -2,7 +2,7 @@ package com.lmteixeira.personalfinances.usecases.user;
 
 import com.lmteixeira.personalfinances.domain.user.User;
 import com.lmteixeira.personalfinances.usecases.exceptions.UserNotFoundException;
-import com.lmteixeira.personalfinances.usecases.interfaces.EntityNotFoundException;
+import com.lmteixeira.personalfinances.usecases.interfaces.exception.EntityNotFoundException;
 import com.lmteixeira.personalfinances.usecases.interfaces.UserRepository;
 
 public class FindUserByEmail {

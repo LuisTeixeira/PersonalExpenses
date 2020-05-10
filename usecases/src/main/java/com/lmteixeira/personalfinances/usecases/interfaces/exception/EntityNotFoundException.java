@@ -1,4 +1,4 @@
-package com.lmteixeira.personalfinances.usecases.interfaces;
+package com.lmteixeira.personalfinances.usecases.interfaces.exception;
 
 public class EntityNotFoundException extends Exception {
 

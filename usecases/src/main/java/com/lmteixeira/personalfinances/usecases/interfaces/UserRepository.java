@@ -1,6 +1,7 @@
 package com.lmteixeira.personalfinances.usecases.interfaces;
 
 import com.lmteixeira.personalfinances.domain.user.User;
+import com.lmteixeira.personalfinances.usecases.interfaces.exception.EntityNotFoundException;
 
 import java.util.List;
 

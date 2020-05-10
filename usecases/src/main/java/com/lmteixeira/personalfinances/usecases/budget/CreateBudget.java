@@ -2,10 +2,9 @@ package com.lmteixeira.personalfinances.usecases.budget;
 
 import com.lmteixeira.personalfinances.domain.budget.Budget;
 import com.lmteixeira.personalfinances.domain.budget.impl.BudgetImpl;
-import com.lmteixeira.personalfinances.domain.user.User;
 import com.lmteixeira.personalfinances.usecases.exceptions.UserNotFoundException;
 import com.lmteixeira.personalfinances.usecases.interfaces.BudgetRepository;
-import com.lmteixeira.personalfinances.usecases.interfaces.EntityNotFoundException;
+import com.lmteixeira.personalfinances.usecases.interfaces.exception.EntityNotFoundException;
 import com.lmteixeira.personalfinances.usecases.interfaces.UserRepository;
 
 public class CreateBudget {

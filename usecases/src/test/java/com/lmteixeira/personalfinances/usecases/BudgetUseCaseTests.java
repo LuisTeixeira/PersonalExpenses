@@ -48,8 +48,6 @@ public class BudgetUseCaseTests {
             exceptionThrown = true;
         }
         Assert.assertTrue(exceptionThrown);
-
-
     }
 
 }
