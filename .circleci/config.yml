@@ -66,4 +66,4 @@ jobs:
           path: test-results
 
       - store-artifacts:
-          path: test-reports/*
+          path: test-reports
