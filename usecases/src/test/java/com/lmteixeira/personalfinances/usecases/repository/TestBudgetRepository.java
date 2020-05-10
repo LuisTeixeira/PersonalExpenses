@@ -33,7 +33,7 @@ public class TestBudgetRepository implements BudgetRepository {
     }
 
     @Override
-    public Long findAllBudgetsExpenses(String userEmail) throws EntityNotFoundException {
+    public Long getExpensesCount(String userEmail) throws EntityNotFoundException {
         Budget budget = budgets.get(userEmail);
         if (budget != null) {
             return budget.getForeseenExpensesCount();
@@ -44,5 +44,14 @@ public class TestBudgetRepository implements BudgetRepository {
     @Override
     public void save(Budget budget) {
         // Don't need to do anything since this mock repository is a map and only stores a pointer to the object
+    }
+
+    @Override
+    public List<String> getExpenseDescriptions(String userEmail) throws EntityNotFoundException {
+        Budget budget = budgets.get(userEmail);
+        if (budget != null) {
+            return budget.getExpenseDescriptions();
+        }
+        throw new EntityNotFoundException("No budget for user with email " + userEmail + " found");
     }
 }

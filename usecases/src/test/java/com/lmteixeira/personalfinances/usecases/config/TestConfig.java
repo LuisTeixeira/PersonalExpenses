@@ -45,4 +45,8 @@ public class TestConfig {
     public AddExpense addExpense() {
         return new AddExpense(budgetRepository);
     }
+
+    public GetExpenseDescriptions getExpensesDescriptions() {
+        return new GetExpenseDescriptions(budgetRepository);
+    }
 }

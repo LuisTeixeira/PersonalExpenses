@@ -1,8 +1,6 @@
 package com.lmteixeira.personalfinances.usecases;
 
 import com.lmteixeira.personalfinances.domain.budget.Budget;
-import com.lmteixeira.personalfinances.domain.transaction.Transaction;
-import com.lmteixeira.personalfinances.domain.transaction.factory.TransactionFactory;
 import com.lmteixeira.personalfinances.usecases.budget.*;
 import com.lmteixeira.personalfinances.usecases.config.TestConfig;
 import com.lmteixeira.personalfinances.usecases.exceptions.BudgetNotFoundException;
@@ -13,7 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.util.List;
 
 public class BudgetUseCaseTests {
     private static final String USER_EMAIL = "test@gmail.com";
@@ -25,6 +23,7 @@ public class BudgetUseCaseTests {
     private CreateUser createUser;
     private GetExpensesCount getBudgetExpensesCount;
     private AddExpense addExpense;
+    private GetExpenseDescriptions getExpenseDescriptions;
 
     @Before
     public void setup() {
@@ -35,6 +34,7 @@ public class BudgetUseCaseTests {
         findUserBudget = config.findUserBudget();
         getBudgetExpensesCount = config.findAllBudgetExpenses();
         addExpense = config.addExpense();
+        getExpenseDescriptions = config.getExpensesDescriptions();
     }
 
     @Test
@@ -44,8 +44,7 @@ public class BudgetUseCaseTests {
 
     @Test
     public void afterCreatingABudgetFindAllBudgetsShouldReturnAListWithOneElement() {
-        createUser.create(USER_EMAIL);
-        createBudget.createBudget(USER_EMAIL);
+        createUserAndBudget();
         Assert.assertEquals(1, findAllBudgets.findAllBudgets().size());
     }
 
@@ -62,8 +61,7 @@ public class BudgetUseCaseTests {
 
     @Test
     public void findUserBudgetShouldReturnTheBudgetObjectAssociatedWithTheUserEmailProvided() {
-        createUser.create(USER_EMAIL);
-        createBudget.createBudget(USER_EMAIL);
+        createUserAndBudget();
         Budget budget = findUserBudget.findUserBudget(USER_EMAIL);
         Assert.assertNotNull(budget);
     }
@@ -81,8 +79,7 @@ public class BudgetUseCaseTests {
 
     @Test
     public void afterAddingAnExpenseToTheBudgetGetBudgetExpensesCountShouldReturnAListContainingTheAddedExpense() {
-        createUser.create(USER_EMAIL);
-        createBudget.createBudget(USER_EMAIL);
+        createUserAndBudget();
         addExpense.addExpense(USER_EMAIL, "Test expense", BigDecimal.valueOf(23d));
         Long budgetExpensesCount = getBudgetExpensesCount.getBudgetExpensesCount(USER_EMAIL);
         Assert.assertEquals(Long.valueOf(1), budgetExpensesCount);
@@ -108,6 +105,36 @@ public class BudgetUseCaseTests {
             exceptionThrown = true;
         }
         Assert.assertTrue(exceptionThrown);
+    }
+
+    @Test
+    public void findAllExpensesInBudgetShouldReturnAListWithDescriptionOfAllExistingExpenses() {
+        String[] expenseDescriptions = new String[]{"First Expense", "Second Expense"};
+        createUserAndBudget();
+        for (String description : expenseDescriptions) {
+            addExpense.addExpense(USER_EMAIL, description, BigDecimal.ONE);
+        }
+        List<String> retrievedDescriptions = getExpenseDescriptions.getExpenseDescriptions(USER_EMAIL);
+        for (int i = 0; i < expenseDescriptions.length; i++) {
+            Assert.assertEquals(expenseDescriptions[i], retrievedDescriptions.get(i));
+        }
+    }
+
+    @Test
+    public void findAllExpensesShouldThrowAnExceptionWhenThereIsNoBudgetForUserWithSpecifiedEmail() {
+        boolean exceptionThrown = false;
+        try {
+            List<String> retrievedDescriptions = getExpenseDescriptions.getExpenseDescriptions(USER_EMAIL);
+        } catch (BudgetNotFoundException ex) {
+            exceptionThrown = true;
+        }
+        Assert.assertTrue(exceptionThrown);
+    }
+
+
+    private void createUserAndBudget() {
+        createUser.create(USER_EMAIL);
+        createBudget.createBudget(USER_EMAIL);
     }
 
 }

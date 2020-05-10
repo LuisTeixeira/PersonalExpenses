@@ -13,7 +13,9 @@ public interface BudgetRepository {
 
     Budget findBudgetByUserEmail(String userEmail) throws EntityNotFoundException;
 
-    Long findAllBudgetsExpenses(String userEmail) throws EntityNotFoundException;
+    Long getExpensesCount(String userEmail) throws EntityNotFoundException;
 
     void save(Budget budget);
+
+    List<String> getExpenseDescriptions(String userEmail) throws EntityNotFoundException;
 }

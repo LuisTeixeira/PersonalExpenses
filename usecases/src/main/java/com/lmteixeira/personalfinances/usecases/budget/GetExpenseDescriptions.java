@@ -4,20 +4,21 @@ import com.lmteixeira.personalfinances.usecases.exceptions.BudgetNotFoundExcepti
 import com.lmteixeira.personalfinances.usecases.interfaces.BudgetRepository;
 import com.lmteixeira.personalfinances.usecases.interfaces.exception.EntityNotFoundException;
 
-public class GetExpensesCount {
+import java.util.List;
+
+public class GetExpenseDescriptions {
 
     private BudgetRepository budgetRepository;
 
-    public GetExpensesCount(BudgetRepository budgetRepository) {
+    public GetExpenseDescriptions(BudgetRepository budgetRepository) {
         this.budgetRepository = budgetRepository;
     }
 
-    public Long getBudgetExpensesCount(String userEmail) {
+    public List<String> getExpenseDescriptions(String userEmail) {
         try {
-            return budgetRepository.getExpensesCount(userEmail);
-        } catch (EntityNotFoundException ex) {
+            return budgetRepository.getExpenseDescriptions(userEmail);
+        } catch (EntityNotFoundException e) {
             throw new BudgetNotFoundException("Budget for user with email " + userEmail + " not found");
         }
     }
-
 }
