@@ -110,9 +110,4 @@ public class BudgetUseCaseTests {
         Assert.assertTrue(exceptionThrown);
     }
 
-    @Test
-    public void findAllExpensesInBudgetShouldReturnAListWithDescriptionOfAllExistingExpenses() {
-
-    }
-
 }
