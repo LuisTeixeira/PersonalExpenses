@@ -6,6 +6,7 @@ import com.lmteixeira.personalfinances.domain.account.impl.TransactionAccountImp
 import com.lmteixeira.personalfinances.domain.transaction.Transaction;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class BudgetImpl implements Budget {
 
@@ -51,4 +52,16 @@ public class BudgetImpl implements Budget {
     public BigDecimal total() {
         return getForeseenIncomeTotal().subtract(getForeseenExpensesTotal());
     }
+
+    @Override
+    public List<String> getExpenseDescriptions() {
+        return foreseenExpenses.getTransactionDescriptions();
+    }
+
+    @Override
+    public List<String> getForeseenIncomeDescriptions() {
+        return foreseenIncome.getTransactionDescriptions();
+    }
+
+
 }

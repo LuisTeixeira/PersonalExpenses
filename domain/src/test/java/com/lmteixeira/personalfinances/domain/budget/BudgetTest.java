@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 public class BudgetTest {
 
@@ -109,6 +110,36 @@ public class BudgetTest {
     @Test
     public void afterAddingIncomeAndExpensesBudgetTotalShouldBeTheDifferenceNegative() {
         testBudgetTotal(BigDecimal.valueOf(20d), BigDecimal.valueOf(22.5d), BigDecimal.valueOf(-2.5d));
+    }
+
+    @Test
+    public void afterAddingForeseenExpensesGetExpensesDescriptionsShouldReturnAListWithTheDescriptions() {
+        String[] expenseDescriptions = new String[] {"First Expense", "Second Expense"};
+        Transaction firstExpense = transactionFactory.createTransaction(BigDecimal.valueOf(2d), expenseDescriptions[0], new Date().getTime());
+        Transaction secondExpense = transactionFactory.createTransaction(BigDecimal.valueOf(2d), expenseDescriptions[1], new Date().getTime());
+        budget.addForeseenExpense(firstExpense);
+        budget.addForeseenExpense(secondExpense);
+
+        List<String> retrievedExpenseDescriptions = budget.getExpenseDescriptions();
+
+        for (int i = 0; i < retrievedExpenseDescriptions.size(); i++) {
+            Assert.assertEquals(retrievedExpenseDescriptions.get(i), expenseDescriptions[i]);
+        }
+    }
+
+    @Test
+    public void afterAddingForeseenIncomeGetIncomeDescriptionsShouldReturnAListWithTheDescriptions() {
+        String[] incomeDescriptions = new String[] {"First Income", "Second Income"};
+        Transaction firstIncome = transactionFactory.createTransaction(BigDecimal.valueOf(2d), incomeDescriptions[0], new Date().getTime());
+        Transaction secondIncome = transactionFactory.createTransaction(BigDecimal.valueOf(2d), incomeDescriptions[1], new Date().getTime());
+        budget.addForeseenIncome(firstIncome);
+        budget.addForeseenIncome(secondIncome);
+
+        List<String> retrievedIncomeDescriptions = budget.getForeseenIncomeDescriptions();
+
+        for (int i = 0; i < retrievedIncomeDescriptions.size(); i++) {
+            Assert.assertEquals(retrievedIncomeDescriptions.get(i), incomeDescriptions[i]);
+        }
     }
 
     private void testBudgetTotal(BigDecimal incomeValue, BigDecimal expenseValue, BigDecimal expectedValue) {

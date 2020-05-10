@@ -3,6 +3,7 @@ package com.lmteixeira.personalfinances.domain.budget;
 import com.lmteixeira.personalfinances.domain.transaction.Transaction;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public interface Budget {
     Long getForeseenExpensesCount();
@@ -20,4 +21,8 @@ public interface Budget {
     boolean isNegative();
 
     BigDecimal total();
+
+    List<String> getExpenseDescriptions();
+
+    List<String> getForeseenIncomeDescriptions();
 }
