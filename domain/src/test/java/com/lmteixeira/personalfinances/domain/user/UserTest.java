@@ -19,7 +19,7 @@ public class UserTest {
 
     @Test
     public void userCreatedWithEmailShouldHaveSameEmailAsStringRepresentation() {
-        Assert.assertNotEquals(USER_EMAIL, user.toString());
+        Assert.assertEquals(USER_EMAIL, user.toString());
     }
 
     @Test
