@@ -53,7 +53,7 @@ jobs:
           command: |
             mkdir -p test-results/
             mkdir -p test-reports/
-            find . -type f -regex ".*/build/test-results/test/.*xml" -exec cp {} test-results/ \;
+            find . -type f -regex ".*/build/test-results/test/.*xml" -exec cp {} test-results/
             find . -type f -regex ".*/build/repors/tests/*" -exec cp -R {} test-reports/ \;
           when: always
 
