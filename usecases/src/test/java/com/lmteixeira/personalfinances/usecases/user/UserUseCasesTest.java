@@ -1,4 +1,4 @@
-package com.lmteixeira.personalfinances.usecases;
+package com.lmteixeira.personalfinances.usecases.user;
 
 import com.lmteixeira.personalfinances.usecases.config.TestConfig;
 import com.lmteixeira.personalfinances.usecases.exceptions.UserNotFoundException;

@@ -1,4 +1,4 @@
-package com.lmteixeira.personalfinances.usecases.repository;
+package com.lmteixeira.personalfinances.usecases.config.repository;
 
 import com.lmteixeira.personalfinances.domain.budget.Budget;
 import com.lmteixeira.personalfinances.usecases.interfaces.BudgetRepository;
