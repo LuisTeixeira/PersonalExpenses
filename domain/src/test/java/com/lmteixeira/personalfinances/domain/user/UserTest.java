@@ -1,11 +1,8 @@
 package com.lmteixeira.personalfinances.domain.user;
 
-import com.lmteixeira.personalfinances.domain.utilities.BigDecimalsUtilities;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.math.BigDecimal;
 
 public class UserTest {
     private static final String USER_EMAIL = "test@gmail.com";

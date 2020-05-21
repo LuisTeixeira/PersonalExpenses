@@ -2,9 +2,6 @@ package com.lmteixeira.personalfinances.usecases.user;
 
 import com.lmteixeira.personalfinances.usecases.config.TestConfig;
 import com.lmteixeira.personalfinances.usecases.exceptions.UserNotFoundException;
-import com.lmteixeira.personalfinances.usecases.user.CreateUser;
-import com.lmteixeira.personalfinances.usecases.user.FindAllUsers;
-import com.lmteixeira.personalfinances.usecases.user.FindUserByEmail;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

@@ -1,12 +1,5 @@
 package com.lmteixeira.personalfinances.domain.user;
 
-import com.lmteixeira.personalfinances.domain.account.TransactionAccount;
-import com.lmteixeira.personalfinances.domain.account.impl.TransactionAccountImpl;
-import com.lmteixeira.personalfinances.domain.budget.Budget;
-import com.lmteixeira.personalfinances.domain.budget.impl.BudgetImpl;
-import com.lmteixeira.personalfinances.domain.transaction.Transaction;
-
-import java.math.BigDecimal;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
