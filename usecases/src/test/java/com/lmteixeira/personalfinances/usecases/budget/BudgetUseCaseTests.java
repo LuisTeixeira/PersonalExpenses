@@ -1,7 +1,6 @@
 package com.lmteixeira.personalfinances.usecases.budget;
 
-import com.lmteixeira.personalfinances.domain.budget.Budget;
-import com.lmteixeira.personalfinances.usecases.budget.*;
+import com.lmteixeira.personalfinances.usecases.models.BudgetModel;
 import com.lmteixeira.personalfinances.usecases.config.TestConfig;
 import com.lmteixeira.personalfinances.usecases.exceptions.BudgetNotFoundException;
 import com.lmteixeira.personalfinances.usecases.exceptions.UserNotFoundException;
@@ -9,9 +8,6 @@ import com.lmteixeira.personalfinances.usecases.user.CreateUser;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.math.BigDecimal;
-import java.util.List;
 
 public class BudgetUseCaseTests {
 
@@ -58,15 +54,15 @@ public class BudgetUseCaseTests {
     @Test
     public void findUserBudgetShouldReturnTheBudgetObjectAssociatedWithTheUserEmailProvided() {
         utils.createUserAndBudget();
-        Budget budget = findUserBudget.findUserBudget(utils.getUserEmail());
-        Assert.assertNotNull(budget);
+        BudgetModel budgetModel = findUserBudget.findUserBudget(utils.getUserEmail());
+        Assert.assertNotNull(budgetModel);
     }
 
     @Test
     public void findUserBudgetShouldThrowExceptionWhenThereIsNoBudgetCreatedForUserWithSpecifiedEmail() {
         boolean exceptionThrown = false;
         try {
-            Budget budget = findUserBudget.findUserBudget(utils.getUserEmail());
+            BudgetModel budgetModel = findUserBudget.findUserBudget(utils.getUserEmail());
         } catch (BudgetNotFoundException ex) {
             exceptionThrown = true;
         }

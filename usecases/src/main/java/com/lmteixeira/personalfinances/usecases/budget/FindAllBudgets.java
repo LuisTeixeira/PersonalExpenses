@@ -1,7 +1,8 @@
 package com.lmteixeira.personalfinances.usecases.budget;
 
-import com.lmteixeira.personalfinances.domain.budget.Budget;
+import com.lmteixeira.personalfinances.usecases.converter.BudgetModelConverter;
 import com.lmteixeira.personalfinances.usecases.interfaces.BudgetRepository;
+import com.lmteixeira.personalfinances.usecases.models.BudgetModel;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ public class FindAllBudgets {
         this.budgetRepository = budgetRepository;
     }
 
-    public List<Budget> findAllBudgets() {
-        return budgetRepository.findAllBudgets();
+    public List<BudgetModel> findAllBudgets() {
+        return new BudgetModelConverter().convertList(budgetRepository.findAllBudgets());
     }
 }
