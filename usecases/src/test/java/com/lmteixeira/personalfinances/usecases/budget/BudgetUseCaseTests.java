@@ -5,9 +5,12 @@ import com.lmteixeira.personalfinances.usecases.config.TestConfig;
 import com.lmteixeira.personalfinances.usecases.exceptions.BudgetNotFoundException;
 import com.lmteixeira.personalfinances.usecases.exceptions.UserNotFoundException;
 import com.lmteixeira.personalfinances.usecases.user.CreateUser;
+import com.lmteixeira.personalfinances.usecases.utilities.BigDecimalsUtilities;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.math.BigDecimal;
 
 public class BudgetUseCaseTests {
 
@@ -56,6 +59,22 @@ public class BudgetUseCaseTests {
         utils.createUserAndBudget();
         BudgetModel budgetModel = findUserBudget.findUserBudget(utils.getUserEmail());
         Assert.assertNotNull(budgetModel);
+    }
+
+    @Test
+    public void findUserBudgetShouldReturnABudgetModelWithTheBudgetBalance() {
+        utils.createUserAndBudget();
+        BudgetModel budgetModel = findUserBudget.findUserBudget(utils.getUserEmail());
+        BigDecimal balance = budgetModel.getBalance();
+        BigDecimalsUtilities.compareBigDecimals(BigDecimal.valueOf(0L), balance);
+    }
+
+    @Test
+    public void findUserBudgetShouldReturnABudgetModelWithTheBudgetIsNegative() {
+        utils.createUserAndBudget();
+        BudgetModel budgetModel = findUserBudget.findUserBudget(utils.getUserEmail());
+        boolean isNegative = budgetModel.isNegative();
+        Assert.assertFalse(isNegative);
     }
 
     @Test

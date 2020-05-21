@@ -9,13 +9,13 @@ import java.util.List;
 public class BudgetModelConverter {
 
     public BudgetModel convert(Budget budget) {
-        return new BudgetModel();
+        return new BudgetModel(budget.total(), budget.isNegative());
     }
 
     public List<BudgetModel> convertList(List<Budget> budgets) {
         ArrayList<BudgetModel> modelList = new ArrayList<>(budgets.size());
-        for (Budget b : budgets) {
-            modelList.add(new BudgetModel());
+        for (Budget budget : budgets) {
+            modelList.add(new BudgetModel(budget.total(), budget.isNegative()));
         }
         return modelList;
     }
