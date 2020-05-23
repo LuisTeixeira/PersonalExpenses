@@ -3,6 +3,7 @@ package com.lmteixeira.personalfinances.usecases.budget;
 import com.lmteixeira.personalfinances.usecases.config.TestConfig;
 import com.lmteixeira.personalfinances.usecases.exceptions.BudgetNotFoundException;
 import com.lmteixeira.personalfinances.usecases.user.CreateUser;
+import com.lmteixeira.personalfinances.usecases.utilities.BigDecimalsUtilities;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,8 +16,9 @@ public class BudgetExpensesUseCasesTests {
     private TestConfig config;
     private CreateBudget createBudget;
     private CreateUser createUser;
-    private GetExpensesCount getBudgetExpensesCount;
+    private GetExpensesCount getExpensesCount;
     private AddExpense addExpense;
+    private GetExpensesTotal getExpensesTotal;
     private GetExpenseDescriptions getExpenseDescriptions;
     private BudgetTestUtils utils;
 
@@ -25,9 +27,10 @@ public class BudgetExpensesUseCasesTests {
         config = new TestConfig();
         createUser = config.createUser();
         createBudget = config.createBudget();
-        getBudgetExpensesCount = config.findAllBudgetExpenses();
+        getExpensesCount = config.getExpensesCount();
         addExpense = config.addExpense();
         getExpenseDescriptions = config.getExpensesDescriptions();
+        getExpensesTotal = config.getExpensesTotal();
         utils = new BudgetTestUtils(createUser, createBudget);
     }
 
@@ -35,7 +38,7 @@ public class BudgetExpensesUseCasesTests {
     public void afterAddingAnExpenseToTheBudgetGetBudgetExpensesCountShouldReturnAListContainingTheAddedExpense() {
         utils.createUserAndBudget();
         addExpense.addExpense(utils.getUserEmail(), "Test expense", BigDecimal.valueOf(23d));
-        Long budgetExpensesCount = getBudgetExpensesCount.getBudgetExpensesCount(utils.getUserEmail());
+        Long budgetExpensesCount = getExpensesCount.getBudgetExpensesCount(utils.getUserEmail());
         Assert.assertEquals(Long.valueOf(1), budgetExpensesCount);
     }
 
@@ -54,7 +57,7 @@ public class BudgetExpensesUseCasesTests {
     public void getBudgetExpensesCountShouldThrowAnExceptionWhenThereIsNoBudgetForUserWithSpecifiedEmail() {
         boolean exceptionThrown = false;
         try {
-            Long count = getBudgetExpensesCount.getBudgetExpensesCount(utils.getUserEmail());
+            Long count = getExpensesCount.getBudgetExpensesCount(utils.getUserEmail());
         } catch (BudgetNotFoundException ex) {
             exceptionThrown = true;
         }
@@ -79,6 +82,25 @@ public class BudgetExpensesUseCasesTests {
         boolean exceptionThrown = false;
         try {
             List<String> retrievedDescriptions = getExpenseDescriptions.getExpenseDescriptions(utils.getUserEmail());
+        } catch (BudgetNotFoundException ex) {
+            exceptionThrown = true;
+        }
+        Assert.assertTrue(exceptionThrown);
+    }
+
+    @Test
+    public void afterAddingAnExpenseToTheBudgetGetBudgetExpensesTotalShouldReturnTheValueOfTheAddedExpense() {
+        utils.createUserAndBudget();
+        addExpense.addExpense(utils.getUserEmail(), "Test Expense", BigDecimal.valueOf(23d));
+        BigDecimal total = getExpensesTotal.getTotal(utils.getUserEmail());
+        Assert.assertTrue(BigDecimalsUtilities.compareBigDecimals(BigDecimal.valueOf(23d), total));
+    }
+
+    @Test
+    public void getBudgetExpensesTotalShouldThrowAnExceptionWhenThereIsNoBudgetForUserWithSpecifiedEmail() {
+        boolean exceptionThrown = false;
+        try {
+            BigDecimal total = getExpensesTotal.getTotal(utils.getUserEmail());
         } catch (BudgetNotFoundException ex) {
             exceptionThrown = true;
         }

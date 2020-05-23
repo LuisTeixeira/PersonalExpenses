@@ -4,6 +4,7 @@ import com.lmteixeira.personalfinances.domain.budget.Budget;
 import com.lmteixeira.personalfinances.usecases.interfaces.BudgetRepository;
 import com.lmteixeira.personalfinances.usecases.interfaces.exception.EntityNotFoundException;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -53,5 +54,14 @@ public class TestBudgetRepository implements BudgetRepository {
             return budget.getExpenseDescriptions();
         }
         throw new EntityNotFoundException("No budget for user with email " + userEmail + " found");
+    }
+
+    @Override
+    public BigDecimal getExpensesTotal(String userEmail) throws EntityNotFoundException {
+        Budget budget = budgets.get(userEmail);
+        if (budget != null) {
+            return budget.getForeseenExpensesTotal();
+        }
+        throw new EntityNotFoundException("No budget found for user with email " + userEmail + " found");
     }
 }

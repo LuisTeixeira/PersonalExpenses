@@ -38,7 +38,7 @@ public class TestConfig {
         return new FindUserBudget(budgetRepository);
     }
 
-    public GetExpensesCount findAllBudgetExpenses() {
+    public GetExpensesCount getExpensesCount() {
         return new GetExpensesCount(budgetRepository);
     }
 
@@ -48,5 +48,9 @@ public class TestConfig {
 
     public GetExpenseDescriptions getExpensesDescriptions() {
         return new GetExpenseDescriptions(budgetRepository);
+    }
+
+    public GetExpensesTotal getExpensesTotal() {
+        return new GetExpensesTotal(budgetRepository);
     }
 }
