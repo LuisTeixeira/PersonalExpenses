@@ -64,4 +64,13 @@ public class TestBudgetRepository implements BudgetRepository {
         }
         throw new EntityNotFoundException("No budget found for user with email " + userEmail + " found");
     }
+
+    @Override
+    public Long getIncomeCount(String userEmail) throws EntityNotFoundException {
+        Budget budget = budgets.get(userEmail);
+        if (budget != null) {
+            return budget.getForeseenIncomeCount();
+        }
+        throw new EntityNotFoundException("No budget for user with email " + userEmail + " found");
+    }
 }

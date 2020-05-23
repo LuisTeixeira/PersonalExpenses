@@ -29,7 +29,7 @@ public class BudgetUseCaseTests {
         createUser = config.createUser();
         createBudget = config.createBudget();
         findUserBudget = config.findUserBudget();
-        utils = new BudgetTestUtils(createUser, createBudget);
+        utils = new BudgetTestUtils(config);
     }
 
     @Test

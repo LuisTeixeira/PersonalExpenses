@@ -2,7 +2,6 @@ package com.lmteixeira.personalfinances.usecases.budget;
 
 import com.lmteixeira.personalfinances.usecases.config.TestConfig;
 import com.lmteixeira.personalfinances.usecases.exceptions.BudgetNotFoundException;
-import com.lmteixeira.personalfinances.usecases.user.CreateUser;
 import com.lmteixeira.personalfinances.usecases.utilities.BigDecimalsUtilities;
 import org.junit.Assert;
 import org.junit.Before;
@@ -14,8 +13,6 @@ import java.util.List;
 public class BudgetExpensesUseCasesTests {
 
     private TestConfig config;
-    private CreateBudget createBudget;
-    private CreateUser createUser;
     private GetExpensesCount getExpensesCount;
     private AddExpense addExpense;
     private GetExpensesTotal getExpensesTotal;
@@ -25,13 +22,11 @@ public class BudgetExpensesUseCasesTests {
     @Before
     public void setup() {
         config = new TestConfig();
-        createUser = config.createUser();
-        createBudget = config.createBudget();
         getExpensesCount = config.getExpensesCount();
         addExpense = config.addExpense();
         getExpenseDescriptions = config.getExpensesDescriptions();
         getExpensesTotal = config.getExpensesTotal();
-        utils = new BudgetTestUtils(createUser, createBudget);
+        utils = new BudgetTestUtils(config);
     }
 
     @Test

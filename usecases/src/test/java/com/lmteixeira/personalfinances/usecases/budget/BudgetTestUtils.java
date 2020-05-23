@@ -1,5 +1,6 @@
 package com.lmteixeira.personalfinances.usecases.budget;
 
+import com.lmteixeira.personalfinances.usecases.config.TestConfig;
 import com.lmteixeira.personalfinances.usecases.user.CreateUser;
 
 public class BudgetTestUtils {
@@ -9,9 +10,9 @@ public class BudgetTestUtils {
     private CreateUser createUser;
     private CreateBudget createBudget;
 
-    public BudgetTestUtils(CreateUser createUser, CreateBudget createBudget) {
-        this.createUser = createUser;
-        this.createBudget = createBudget;
+    public BudgetTestUtils(TestConfig config) {
+        this.createUser = config.createUser();
+        this.createBudget = config.createBudget();
     }
 
     protected String getUserEmail() {

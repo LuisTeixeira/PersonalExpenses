@@ -10,20 +10,20 @@ import com.lmteixeira.personalfinances.usecases.interfaces.exception.EntityNotFo
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class AddExpense {
+public class AddIncome {
 
     private BudgetRepository budgetRepository;
 
-    public AddExpense(BudgetRepository budgetRepository) {
+    public AddIncome(BudgetRepository budgetRepository) {
         this.budgetRepository = budgetRepository;
     }
 
-    public void addExpense(String userEmail, String description, BigDecimal value) {
+    public void addIncome(String userEmail, String description, BigDecimal value) {
         try {
             Budget budget = budgetRepository.findBudgetByUserEmail(userEmail);
             TransactionFactory transactionFactory = new TransactionFactory();
-            Transaction expense = transactionFactory.createTransaction(value, description, new Date().getTime());
-            budget.addForeseenExpense(expense);
+            Transaction income = transactionFactory.createTransaction(value, description, new Date().getTime());
+            budget.addForeseenIncome(income);
             budgetRepository.save(budget);
         } catch (EntityNotFoundException e) {
             throw new BudgetNotFoundException("Budget for user with email " + userEmail + " not found");
