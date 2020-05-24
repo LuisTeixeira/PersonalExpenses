@@ -23,4 +23,6 @@ public interface BudgetRepository {
     BigDecimal getExpensesTotal(String userEmail) throws EntityNotFoundException;
 
     Long getIncomeCount(String userEmail) throws EntityNotFoundException;
+
+    List<String> getIncomeDescriptions(String userEmail) throws EntityNotFoundException;
 }

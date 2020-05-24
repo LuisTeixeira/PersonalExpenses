@@ -61,4 +61,8 @@ public class TestConfig {
     public GetIncomeCount getIncomeCount() {
         return new GetIncomeCount(budgetRepository);
     }
+
+    public GetIncomeDescriptions getIncomeDescriptions() {
+        return new GetIncomeDescriptions(budgetRepository);
+    }
 }

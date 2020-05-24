@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class BudgetIncomeUseCases {
 
@@ -14,12 +15,14 @@ public class BudgetIncomeUseCases {
     private BudgetTestUtils utils;
     private AddIncome addIncome;
     private GetIncomeCount getIncomeCount;
+    private GetIncomeDescriptions getIncomeDescriptions;
 
     @Before
     public void setup() {
         config = new TestConfig();
         addIncome = config.addIncome();
         getIncomeCount = config.getIncomeCount();
+        getIncomeDescriptions = config.getIncomeDescriptions();
         utils = new BudgetTestUtils(config);
     }
 
@@ -53,4 +56,27 @@ public class BudgetIncomeUseCases {
         Assert.assertTrue(exceptionThrown);
     }
 
+    @Test
+    public void getIncomeDescriptionsShouldReturnAListWithDescriptionOfAllExistingIncome() {
+        String[] incomeDescriptions = new String[]{"First Income", "Second Income", "Third Income"};
+        utils.createUserAndBudget();
+        for (String description : incomeDescriptions) {
+            addIncome.addIncome(utils.getUserEmail(), description, BigDecimal.ONE);
+        }
+        List<String> retrievedDescriptions = getIncomeDescriptions.getIncomeDescriptions(utils.getUserEmail());
+        for (int i = 0; i < incomeDescriptions.length; i++) {
+            Assert.assertEquals(incomeDescriptions[i], retrievedDescriptions.get(i));
+        }
+    }
+
+    @Test
+    public void getIncomeDescriptionsShouldThrowAnExceptionWhenThereIsNoBudgetForUserWithSpecifiedEmail() {
+        boolean exceptionThrown = false;
+        try {
+            List<String> retrievedDescriptions = getIncomeDescriptions.getIncomeDescriptions(utils.getUserEmail());
+        } catch (BudgetNotFoundException ex) {
+            exceptionThrown = true;
+        }
+        Assert.assertTrue(exceptionThrown);
+    }
 }
