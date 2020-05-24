@@ -60,7 +60,7 @@ public class BudgetExpensesUseCasesTests {
     }
 
     @Test
-    public void findAllExpensesInBudgetShouldReturnAListWithDescriptionOfAllExistingExpenses() {
+    public void getExpenseDescriptionsShouldReturnAListWithDescriptionOfAllExistingExpenses() {
         String[] expenseDescriptions = new String[]{"First Expense", "Second Expense"};
         utils.createUserAndBudget();
         for (String description : expenseDescriptions) {
@@ -73,7 +73,7 @@ public class BudgetExpensesUseCasesTests {
     }
 
     @Test
-    public void findAllExpensesShouldThrowAnExceptionWhenThereIsNoBudgetForUserWithSpecifiedEmail() {
+    public void getExpenseDescriptionsShouldThrowAnExceptionWhenThereIsNoBudgetForUserWithSpecifiedEmail() {
         boolean exceptionThrown = false;
         try {
             List<String> retrievedDescriptions = getExpenseDescriptions.getExpenseDescriptions(utils.getUserEmail());
