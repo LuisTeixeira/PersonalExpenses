@@ -82,4 +82,13 @@ public class TestBudgetRepository implements BudgetRepository {
         }
         throw new EntityNotFoundException("No budget for user with email " + userEmail + " found");
     }
+
+    @Override
+    public BigDecimal getIncomeTotal(String userEmail) throws EntityNotFoundException {
+        Budget budget = budgets.get(userEmail);
+        if (budget != null) {
+            return budget.getForeseenIncomeTotal();
+        }
+        throw new EntityNotFoundException("No budget for user with email " + userEmail + " found");
+    }
 }

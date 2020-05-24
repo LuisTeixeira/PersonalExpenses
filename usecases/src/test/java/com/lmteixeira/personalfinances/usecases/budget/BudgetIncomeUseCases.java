@@ -2,6 +2,7 @@ package com.lmteixeira.personalfinances.usecases.budget;
 
 import com.lmteixeira.personalfinances.usecases.config.TestConfig;
 import com.lmteixeira.personalfinances.usecases.exceptions.BudgetNotFoundException;
+import com.lmteixeira.personalfinances.usecases.utilities.BigDecimalsUtilities;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,6 +17,7 @@ public class BudgetIncomeUseCases {
     private AddIncome addIncome;
     private GetIncomeCount getIncomeCount;
     private GetIncomeDescriptions getIncomeDescriptions;
+    private GetIncomeTotal getIncomeTotal;
 
     @Before
     public void setup() {
@@ -23,6 +25,7 @@ public class BudgetIncomeUseCases {
         addIncome = config.addIncome();
         getIncomeCount = config.getIncomeCount();
         getIncomeDescriptions = config.getIncomeDescriptions();
+        getIncomeTotal = config.getIncomeTotal();
         utils = new BudgetTestUtils(config);
     }
 
@@ -74,6 +77,25 @@ public class BudgetIncomeUseCases {
         boolean exceptionThrown = false;
         try {
             List<String> retrievedDescriptions = getIncomeDescriptions.getIncomeDescriptions(utils.getUserEmail());
+        } catch (BudgetNotFoundException ex) {
+            exceptionThrown = true;
+        }
+        Assert.assertTrue(exceptionThrown);
+    }
+
+    @Test
+    public void afterAddingAnIncomeToTheBudgetIncomeTotalShouldReturnTheValueOfTheAddedIncome() {
+        utils.createUserAndBudget();
+        addIncome.addIncome(utils.getUserEmail(), "Test Income", BigDecimal.valueOf(32d));
+        BigDecimal total = getIncomeTotal.getTotal(utils.getUserEmail());
+        Assert.assertTrue(BigDecimalsUtilities.compareBigDecimals(BigDecimal.valueOf(32d), total));
+    }
+
+    @Test
+    public void getBudgetTotalShouldThrowAnExceptionWhenThereIsNoBudgetForUserWIthSpecifiedEmail() {
+        boolean exceptionThrown = false;
+        try {
+            BigDecimal total = getIncomeTotal.getTotal(utils.getUserEmail());
         } catch (BudgetNotFoundException ex) {
             exceptionThrown = true;
         }
