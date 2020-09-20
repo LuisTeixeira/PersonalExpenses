@@ -7,6 +7,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
@@ -17,9 +19,22 @@ public class UseControllerTest {
     MockMvc userController;
 
     @Test
-    public void getAllUsersTest() throws Exception {
+    public void getAllUsersShouldReturnIsOk() throws Exception {
         ResultActions resultActions = userController.perform(get("/users"));
         resultActions.andExpect(status().isOk());
+    }
+
+    @Test
+    public void getAllUsersShouldReturnEmptyListWhenNoUserWasCreated() throws Exception {
+        ResultActions resultActions = userController.perform(get("/users"));
+        resultActions.andExpect(status().isOk())
+                .andExpect(content().json("[]"));
+    }
+
+    @Test
+    public void createUserWithEmptyContentShouldReturnStatus() throws Exception {
+        ResultActions resultActions = userController.perform(post("/users"));
+        resultActions.andExpect(status().is(422));
     }
 
 }
