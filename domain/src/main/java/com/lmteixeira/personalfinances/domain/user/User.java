@@ -25,6 +25,10 @@ public class User {
         return matcher.matches();
     }
 
+    public String getEmail() {
+        return this.email;
+    }
+
     public class InvalidEmailException extends RuntimeException {
         public InvalidEmailException(String message) {
             super(message);

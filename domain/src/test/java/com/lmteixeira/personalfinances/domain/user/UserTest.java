@@ -20,6 +20,11 @@ public class UserTest {
     }
 
     @Test
+    public void userCreatedWithEmailShouldReturnSameEmailWithGetEmail() {
+        Assert.assertEquals(USER_EMAIL, user.getEmail());
+    }
+
+    @Test
     public void userCreateWithEmailShouldThrowExceptionWhenANonValidEmailIsUsed() {
         String[] invalidEmails = new String[]{"test", "test@", "test@gmail", "@gmail", "@gmail.com"};
 
