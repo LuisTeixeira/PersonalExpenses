@@ -8,6 +8,7 @@ import com.lmteixeira.personalfinances.usecases.interfaces.UserRepository;
 import com.lmteixeira.personalfinances.usecases.interfaces.exception.EntityNotFoundException;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class HazelcastRepository implements UserRepository {
 
@@ -23,13 +24,17 @@ public class HazelcastRepository implements UserRepository {
 
     @Override
     public List<User> all() {
-        return null;
+        IMap<String, HazelcastUser> map = HAZELCAST.getMap(MAP_NAME);
+        return map.values().stream().map(HazelcastUser::toUser).collect(Collectors.toList());
     }
 
     @Override
     public User findUserByEmail(String email) throws EntityNotFoundException {
         IMap<String, HazelcastUser> map = HAZELCAST.getMap(MAP_NAME);
         HazelcastUser userDb = map.get(email);
+        if (userDb == null) {
+            throw new EntityNotFoundException("User with email " + email + " not found");
+        }
         return userDb.toUser();
     }
 

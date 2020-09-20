@@ -1,4 +1,6 @@
 include 'domain'
 include 'usecases'
+include 'hazelcastrepo'
 include 'web'
+include 'testdata'
 
