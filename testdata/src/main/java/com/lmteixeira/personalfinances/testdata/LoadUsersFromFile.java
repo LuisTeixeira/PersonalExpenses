@@ -1,0 +1,52 @@
+package com.lmteixeira.personalfinances.testdata;
+
+import com.lmteixeira.personalfinances.domain.user.User;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+import java.io.*;
+import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
+import java.util.Iterator;
+import java.util.stream.Collectors;
+
+public class LoadUsersFromFile {
+
+    private static final String USER_JSON_FILE_NAME = "/users.json";
+
+    private JSONParser parser = new JSONParser();
+
+    public User[] getUsersFromFile() {
+        User[] users = null;
+        try {
+            Object obj = parser.parse(readFileFromResources());
+            JSONObject jsonObject = (JSONObject) obj;
+            JSONArray jsonArray = (JSONArray) jsonObject.get("users");
+            users = new User[jsonArray.size()];
+            int index = 0;
+            Iterator<JSONObject> items = jsonArray.iterator();
+            while (items.hasNext()) {
+                JSONObject item = items.next();
+                String email = (String) item.get("email");
+                User user = new User(email);
+                users[index] = user;
+                index++;
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException | URISyntaxException e) {
+            e.printStackTrace();
+        }
+        return users;
+    }
+
+    private String readFileFromResources() throws URISyntaxException, IOException {
+        InputStream in = getClass().getResourceAsStream(USER_JSON_FILE_NAME);
+        String jsonString = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8)).lines().collect(Collectors.joining("\n"));
+        return jsonString;
+    }
+}

@@ -1,0 +1,17 @@
+{
+  "users":
+  [
+    {
+      "email": "test1@test.com"
+    },
+    {
+      "email": "test2@test.com"
+    },
+    {
+      "email": "test3@test.com"
+    },
+    {
+      "email": "test4@test.com"
+    }
+  ]
+}
