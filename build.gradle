@@ -1,9 +1,11 @@
 plugins {
     id 'java'
+    id 'jacoco'
 }
 
 allprojects {
     apply plugin: 'java'
+    apply plugin: 'jacoco'
 
     group 'com.lmteixeira'
     version '1.0-SNAPSHOT'
@@ -14,5 +16,14 @@ allprojects {
         mavenCentral()
         jcenter()
     }
+
+    test {
+        finalizedBy jacocoTestReport
+    }
+
+    jacocoTestReport {
+        dependsOn test
+    }
+
 }
 
