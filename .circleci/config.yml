@@ -41,6 +41,8 @@ jobs:
       # run tests!
       - run: gradle test
 
+      - run: gradle jacocoRootReport
+
       - run:
           environment:
             SSH_TARGET: "localhost"
