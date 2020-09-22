@@ -17,13 +17,40 @@ allprojects {
         jcenter()
     }
 
-    test {
-        finalizedBy jacocoTestReport
-    }
-
-    jacocoTestReport {
-        dependsOn test
-    }
-
 }
 
+subprojects {
+    jacocoTestReport {
+        getAdditionalSourceDirs().from( files(sourceSets.main.allSource.srcDirs))
+        getSourceDirectories().from(files(sourceSets.main.allSource.srcDirs))
+        getClassDirectories().from(files(sourceSets.main.output))
+        reports {
+            html.enabled = true
+            xml.enabled = false
+            csv.enabled = false
+        }
+    }
+}
+
+task jacocoRootReport(type: JacocoReport) {
+    dependsOn = subprojects.test
+    getAdditionalSourceDirs().from(subprojects.sourceSets.main.allSource.srcDirs)
+    getSourceDirectories().from(subprojects.sourceSets.main.allSource.srcDirs)
+    getClassDirectories().from(subprojects.sourceSets.main.output)
+    getExecutionData().from(subprojects.jacocoTestReport.executionData)
+    reports {
+        html.enabled = true
+        xml.enabled = false
+        csv.enabled = false
+    }
+
+    onlyIf = {
+        true
+    }
+
+    doFirst {
+        getExecutionData().setFrom(executionData.findAll {
+            it.exists()
+        })
+    }
+}
