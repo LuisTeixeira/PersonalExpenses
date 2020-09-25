@@ -18,22 +18,29 @@ public class UseControllerTest {
     }
 
     @Test
-    public void getAllUsersShouldReturnIsOk() throws Exception {
+    public void getAllUsersShouldReturnIsOk() {
         ResponseEntity responseEntity = userController.getAllUsers();
         Assert.assertEquals(200, responseEntity.getStatusCodeValue());
     }
 
     @Test
-    public void getAllUsersShouldReturnEmptyListWhenNoUserWasCreated() throws Exception {
+    public void getAllUsersShouldReturnEmptyListWhenNoUserWasCreated() {
         ResponseEntity<List<Object>> responseEntity = userController.getAllUsers();
         Assert.assertTrue(responseEntity.getBody().isEmpty());
     }
 
     @Test
-    public void createUserWithValidJsonShouldReturnStatus201() throws Exception {
+    public void createUserShouldReturnStatus201() {
         UserUiModel user = new UserUiModel("test@test.com");
         ResponseEntity responseEntity = userController.createUser(user);
         Assert.assertEquals(201, responseEntity.getStatusCodeValue());
+    }
+
+    @Test
+    public void createUserWithShouldReturnTheUserCreated() {
+        UserUiModel user = new UserUiModel("test@test.com");
+        ResponseEntity<UserUiModel> responseEntity = userController.createUser(user);
+        Assert.assertEquals(responseEntity.getBody().getEmail(), user.getEmail());
     }
 
 }

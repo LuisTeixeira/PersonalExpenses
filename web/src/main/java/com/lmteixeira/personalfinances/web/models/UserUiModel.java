@@ -12,4 +12,8 @@ public class UserUiModel {
     public UserUiModel(String email) {
         this.email = email;
     }
+
+    public String getEmail() {
+        return this.email;
+    }
 }

@@ -20,8 +20,8 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity createUser(@Valid @RequestBody UserUiModel user) {
-        return ResponseEntity.status(201).build();
+    public ResponseEntity<UserUiModel> createUser(@Valid @RequestBody UserUiModel user) {
+        return ResponseEntity.status(201).body(user);
     }
 
 }
