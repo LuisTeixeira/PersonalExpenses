@@ -1,40 +1,39 @@
 package com.lmteixeira.personalfinances.web;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
+import com.lmteixeira.personalfinances.web.models.UserUiModel;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.springframework.http.ResponseEntity;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import java.util.List;
 
-
-@WebMvcTest(controllers = UserController.class)
 public class UseControllerTest {
 
-    @Autowired
-    MockMvc userController;
+    private UserController userController;
+
+    @Before
+    public void setup() {
+        this.userController = new UserController();
+    }
 
     @Test
     public void getAllUsersShouldReturnIsOk() throws Exception {
-        ResultActions resultActions = userController.perform(get("/users"));
-        resultActions.andExpect(status().isOk());
+        ResponseEntity responseEntity = userController.getAllUsers();
+        Assert.assertEquals(200, responseEntity.getStatusCodeValue());
     }
 
     @Test
     public void getAllUsersShouldReturnEmptyListWhenNoUserWasCreated() throws Exception {
-        ResultActions resultActions = userController.perform(get("/users"));
-        resultActions.andExpect(status().isOk())
-                .andExpect(content().json("[]"));
+        ResponseEntity<List<Object>> responseEntity = userController.getAllUsers();
+        Assert.assertTrue(responseEntity.getBody().isEmpty());
     }
 
     @Test
-    public void createUserWithEmptyContentShouldReturnStatus() throws Exception {
-        ResultActions resultActions = userController.perform(post("/users"));
-        resultActions.andExpect(status().is(422));
+    public void createUserWithValidJsonShouldReturnStatus201() throws Exception {
+        UserUiModel user = new UserUiModel("test@test.com");
+        ResponseEntity responseEntity = userController.createUser(user);
+        Assert.assertEquals(201, responseEntity.getStatusCodeValue());
     }
 
 }

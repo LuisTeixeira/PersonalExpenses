@@ -8,6 +8,9 @@ apply plugin: 'io.spring.dependency-management'
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+    implementation 'javax.validation:validation-api:2.0.1.Final'
+    runtime 'org.hibernate.validator:hibernate-validator:6.0.2.Final'
+    runtime 'org.hibernate.validator:hibernate-validator-annotation-processor:6.0.2.Final'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
