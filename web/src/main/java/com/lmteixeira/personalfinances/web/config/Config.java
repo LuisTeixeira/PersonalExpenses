@@ -4,6 +4,7 @@ import com.lmteixeira.personalfinances.hazelcastrepo.HazelcastRepository;
 import com.lmteixeira.personalfinances.usecases.interfaces.UserRepository;
 import com.lmteixeira.personalfinances.usecases.user.CreateUser;
 import com.lmteixeira.personalfinances.usecases.user.FindAllUsers;
+import com.lmteixeira.personalfinances.usecases.user.FindUserByEmail;
 import com.lmteixeira.personalfinances.web.controller.UserController;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,7 +24,12 @@ public class Config {
         return new FindAllUsers(userRepository);
     }
 
+    @Bean
+    public FindUserByEmail findUserByEmail() {
+        return new FindUserByEmail(userRepository);
+    }
+
     public UserController userController() {
-        return new UserController(createUser(), findAllUsers());
+        return new UserController(createUser(), findAllUsers(), findUserByEmail());
     }
 }

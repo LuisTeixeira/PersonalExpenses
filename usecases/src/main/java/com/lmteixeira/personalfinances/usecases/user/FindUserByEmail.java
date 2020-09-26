@@ -13,7 +13,7 @@ public class FindUserByEmail {
         this.userRepository = userRepository;
     }
 
-    public User findUserByEmail(String userEmail) {
+    public User findUserByEmail(String userEmail) throws UserNotFoundException {
         try {
             return userRepository.findUserByEmail(userEmail);
         } catch (EntityNotFoundException e) {

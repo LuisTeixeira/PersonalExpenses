@@ -2,6 +2,7 @@ package com.lmteixeira.personalfinances.usecases.budget;
 
 import com.lmteixeira.personalfinances.usecases.config.TestConfig;
 import com.lmteixeira.personalfinances.usecases.exceptions.BudgetNotFoundException;
+import com.lmteixeira.personalfinances.usecases.exceptions.UserNotFoundException;
 import com.lmteixeira.personalfinances.usecases.utilities.BigDecimalsUtilities;
 import org.junit.Assert;
 import org.junit.Before;
@@ -30,7 +31,7 @@ public class BudgetIncomeUseCases {
     }
 
     @Test
-    public void afterAddingIncomeToTheBudgetGetBudgetIncomeCountShouldReturnAListContainingTheAddedIncome() {
+    public void afterAddingIncomeToTheBudgetGetBudgetIncomeCountShouldReturnAListContainingTheAddedIncome() throws UserNotFoundException {
         utils.createUserAndBudget();
         addIncome.addIncome(utils.getUserEmail(), "Test Income", BigDecimal.valueOf(23d));
         Long incomeCount = getIncomeCount.getIncomeCount(utils.getUserEmail());
@@ -60,7 +61,7 @@ public class BudgetIncomeUseCases {
     }
 
     @Test
-    public void getIncomeDescriptionsShouldReturnAListWithDescriptionOfAllExistingIncome() {
+    public void getIncomeDescriptionsShouldReturnAListWithDescriptionOfAllExistingIncome() throws UserNotFoundException {
         String[] incomeDescriptions = new String[]{"First Income", "Second Income", "Third Income"};
         utils.createUserAndBudget();
         for (String description : incomeDescriptions) {
@@ -84,7 +85,7 @@ public class BudgetIncomeUseCases {
     }
 
     @Test
-    public void afterAddingAnIncomeToTheBudgetIncomeTotalShouldReturnTheValueOfTheAddedIncome() {
+    public void afterAddingAnIncomeToTheBudgetIncomeTotalShouldReturnTheValueOfTheAddedIncome() throws UserNotFoundException {
         utils.createUserAndBudget();
         addIncome.addIncome(utils.getUserEmail(), "Test Income", BigDecimal.valueOf(32d));
         BigDecimal total = getIncomeTotal.getTotal(utils.getUserEmail());

@@ -56,4 +56,18 @@ public class UseControllerTest {
         Assert.assertEquals(user.getEmail(), returnedUser.getEmail());
     }
 
+    @Test
+    public void whenNoUserWasAddedGetUserByEmailShouldReturnStatus404() {
+        ResponseEntity<UserUiModel> responseEntity = userController.getUserByEmail("test@test.com");
+        Assert.assertEquals(404, responseEntity.getStatusCodeValue());
+    }
+
+    @Test
+    public void afterAddAUserGetUserByIdShouldReturnTheAddedUser() {
+        UserUiModel user = new UserUiModel("test@test.com");
+        userController.createUser(user);
+        ResponseEntity<UserUiModel> responseEntity = userController.getUserByEmail(user.getEmail());
+        UserUiModel returnedUser = responseEntity.getBody();
+        Assert.assertEquals(user.getEmail(), returnedUser.getEmail());
+    }
 }

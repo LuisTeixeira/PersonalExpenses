@@ -1,6 +1,7 @@
 package com.lmteixeira.personalfinances.usecases.budget;
 
 import com.lmteixeira.personalfinances.usecases.config.TestConfig;
+import com.lmteixeira.personalfinances.usecases.exceptions.UserNotFoundException;
 import com.lmteixeira.personalfinances.usecases.user.CreateUser;
 
 public class BudgetTestUtils {
@@ -19,7 +20,7 @@ public class BudgetTestUtils {
         return USER_EMAIL;
     }
 
-    protected void createUserAndBudget() {
+    protected void createUserAndBudget() throws UserNotFoundException {
         createUser.create(USER_EMAIL);
         createBudget.createBudget(USER_EMAIL);
     }

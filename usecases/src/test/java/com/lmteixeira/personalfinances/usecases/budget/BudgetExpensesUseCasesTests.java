@@ -2,6 +2,7 @@ package com.lmteixeira.personalfinances.usecases.budget;
 
 import com.lmteixeira.personalfinances.usecases.config.TestConfig;
 import com.lmteixeira.personalfinances.usecases.exceptions.BudgetNotFoundException;
+import com.lmteixeira.personalfinances.usecases.exceptions.UserNotFoundException;
 import com.lmteixeira.personalfinances.usecases.utilities.BigDecimalsUtilities;
 import org.junit.Assert;
 import org.junit.Before;
@@ -30,7 +31,7 @@ public class BudgetExpensesUseCasesTests {
     }
 
     @Test
-    public void afterAddingAnExpenseToTheBudgetGetBudgetExpensesCountShouldReturnAListContainingTheAddedExpense() {
+    public void afterAddingAnExpenseToTheBudgetGetBudgetExpensesCountShouldReturnAListContainingTheAddedExpense() throws UserNotFoundException {
         utils.createUserAndBudget();
         addExpense.addExpense(utils.getUserEmail(), "Test expense", BigDecimal.valueOf(23d));
         Long budgetExpensesCount = getExpensesCount.getBudgetExpensesCount(utils.getUserEmail());
@@ -60,7 +61,7 @@ public class BudgetExpensesUseCasesTests {
     }
 
     @Test
-    public void getExpenseDescriptionsShouldReturnAListWithDescriptionOfAllExistingExpenses() {
+    public void getExpenseDescriptionsShouldReturnAListWithDescriptionOfAllExistingExpenses() throws UserNotFoundException {
         String[] expenseDescriptions = new String[]{"First Expense", "Second Expense"};
         utils.createUserAndBudget();
         for (String description : expenseDescriptions) {
@@ -84,7 +85,7 @@ public class BudgetExpensesUseCasesTests {
     }
 
     @Test
-    public void afterAddingAnExpenseToTheBudgetGetBudgetExpensesTotalShouldReturnTheValueOfTheAddedExpense() {
+    public void afterAddingAnExpenseToTheBudgetGetBudgetExpensesTotalShouldReturnTheValueOfTheAddedExpense() throws UserNotFoundException {
         utils.createUserAndBudget();
         addExpense.addExpense(utils.getUserEmail(), "Test Expense", BigDecimal.valueOf(23d));
         BigDecimal total = getExpensesTotal.getTotal(utils.getUserEmail());

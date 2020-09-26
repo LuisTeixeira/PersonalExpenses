@@ -34,7 +34,7 @@ public class UserUseCasesTest {
     }
 
     @Test
-    public void findUserByEmailShouldReturnThatUserWhenUserExists() {
+    public void findUserByEmailShouldReturnThatUserWhenUserExists() throws UserNotFoundException {
         String userEmail = "test@gmail.com";
         createUser.create(userEmail);
         Assert.assertEquals(userEmail, findUserByEmail.findUserByEmail(userEmail).toString());

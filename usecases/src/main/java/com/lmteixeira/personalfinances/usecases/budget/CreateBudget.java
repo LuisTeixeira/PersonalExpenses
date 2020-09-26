@@ -17,7 +17,7 @@ public class CreateBudget {
         this.budgetRepository = budgetRepository;
     }
 
-    public void createBudget(String userEmail) {
+    public void createBudget(String userEmail) throws UserNotFoundException {
 
         try {
             userRepository.findUserByEmail(userEmail);

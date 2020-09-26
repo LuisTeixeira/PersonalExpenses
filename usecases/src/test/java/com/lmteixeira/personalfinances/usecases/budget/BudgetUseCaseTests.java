@@ -38,7 +38,7 @@ public class BudgetUseCaseTests {
     }
 
     @Test
-    public void afterCreatingABudgetFindAllBudgetsShouldReturnAListWithOneElement() {
+    public void afterCreatingABudgetFindAllBudgetsShouldReturnAListWithOneElement() throws UserNotFoundException {
         utils.createUserAndBudget();
         Assert.assertEquals(1, findAllBudgets.findAllBudgets().size());
     }
@@ -55,14 +55,14 @@ public class BudgetUseCaseTests {
     }
 
     @Test
-    public void findUserBudgetShouldReturnTheBudgetObjectAssociatedWithTheUserEmailProvided() {
+    public void findUserBudgetShouldReturnTheBudgetObjectAssociatedWithTheUserEmailProvided() throws UserNotFoundException {
         utils.createUserAndBudget();
         BudgetModel budgetModel = findUserBudget.findUserBudget(utils.getUserEmail());
         Assert.assertNotNull(budgetModel);
     }
 
     @Test
-    public void findUserBudgetShouldReturnABudgetModelWithTheBudgetBalance() {
+    public void findUserBudgetShouldReturnABudgetModelWithTheBudgetBalance() throws UserNotFoundException {
         utils.createUserAndBudget();
         BudgetModel budgetModel = findUserBudget.findUserBudget(utils.getUserEmail());
         BigDecimal balance = budgetModel.getBalance();
@@ -70,7 +70,7 @@ public class BudgetUseCaseTests {
     }
 
     @Test
-    public void findUserBudgetShouldReturnABudgetModelWithTheBudgetIsNegative() {
+    public void findUserBudgetShouldReturnABudgetModelWithTheBudgetIsNegative() throws UserNotFoundException {
         utils.createUserAndBudget();
         BudgetModel budgetModel = findUserBudget.findUserBudget(utils.getUserEmail());
         boolean isNegative = budgetModel.isNegative();
