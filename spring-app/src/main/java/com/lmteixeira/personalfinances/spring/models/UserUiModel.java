@@ -1,4 +1,4 @@
-package com.lmteixeira.personalfinances.web.models;
+package com.lmteixeira.personalfinances.spring.models;
 
 import com.lmteixeira.personalfinances.domain.user.User;
 

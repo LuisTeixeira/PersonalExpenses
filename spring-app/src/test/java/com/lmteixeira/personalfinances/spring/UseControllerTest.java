@@ -1,8 +1,8 @@
-package com.lmteixeira.personalfinances.web;
+package com.lmteixeira.personalfinances.spring;
 
-import com.lmteixeira.personalfinances.web.config.TestConfig;
-import com.lmteixeira.personalfinances.web.models.UserUiModel;
-import com.lmteixeira.personalfinances.web.rest.SpringUserController;
+import com.lmteixeira.personalfinances.spring.config.TestConfig;
+import com.lmteixeira.personalfinances.spring.models.UserUiModel;
+import com.lmteixeira.personalfinances.spring.rest.SpringUserController;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

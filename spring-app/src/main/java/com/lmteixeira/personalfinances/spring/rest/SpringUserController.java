@@ -1,8 +1,8 @@
-package com.lmteixeira.personalfinances.web.rest;
+package com.lmteixeira.personalfinances.spring.rest;
 
 import com.lmteixeira.personalfinances.usecases.exceptions.UserNotFoundException;
-import com.lmteixeira.personalfinances.web.controller.UserController;
-import com.lmteixeira.personalfinances.web.models.UserUiModel;
+import com.lmteixeira.personalfinances.spring.controller.UserController;
+import com.lmteixeira.personalfinances.spring.models.UserUiModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

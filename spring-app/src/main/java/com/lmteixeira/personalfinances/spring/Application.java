@@ -1,4 +1,4 @@
-package com.lmteixeira.personalfinances.web;
+package com.lmteixeira.personalfinances.spring;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

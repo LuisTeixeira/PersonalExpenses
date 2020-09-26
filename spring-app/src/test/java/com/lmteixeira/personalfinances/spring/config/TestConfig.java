@@ -1,12 +1,12 @@
-package com.lmteixeira.personalfinances.web.config;
+package com.lmteixeira.personalfinances.spring.config;
 
 import com.lmteixeira.personalfinances.usecases.interfaces.UserRepository;
 import com.lmteixeira.personalfinances.usecases.user.CreateUser;
 import com.lmteixeira.personalfinances.usecases.user.FindAllUsers;
 import com.lmteixeira.personalfinances.usecases.user.FindUserByEmail;
-import com.lmteixeira.personalfinances.web.controller.UserController;
-import com.lmteixeira.personalfinances.web.repository.TestUserRepository;
-import com.lmteixeira.personalfinances.web.rest.SpringUserController;
+import com.lmteixeira.personalfinances.spring.controller.UserController;
+import com.lmteixeira.personalfinances.spring.repository.TestUserRepository;
+import com.lmteixeira.personalfinances.spring.rest.SpringUserController;
 
 public class TestConfig {
 

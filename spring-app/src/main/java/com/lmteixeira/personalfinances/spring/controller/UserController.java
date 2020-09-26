@@ -1,11 +1,11 @@
-package com.lmteixeira.personalfinances.web.controller;
+package com.lmteixeira.personalfinances.spring.controller;
 
 import com.lmteixeira.personalfinances.domain.user.User;
 import com.lmteixeira.personalfinances.usecases.exceptions.UserNotFoundException;
 import com.lmteixeira.personalfinances.usecases.user.CreateUser;
 import com.lmteixeira.personalfinances.usecases.user.FindAllUsers;
 import com.lmteixeira.personalfinances.usecases.user.FindUserByEmail;
-import com.lmteixeira.personalfinances.web.models.UserUiModel;
+import com.lmteixeira.personalfinances.spring.models.UserUiModel;
 
 import java.util.List;
 import java.util.stream.Collectors;

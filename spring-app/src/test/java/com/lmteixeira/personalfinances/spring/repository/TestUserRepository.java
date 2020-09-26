@@ -1,4 +1,4 @@
-package com.lmteixeira.personalfinances.web.repository;
+package com.lmteixeira.personalfinances.spring.repository;
 
 import com.lmteixeira.personalfinances.domain.user.User;
 import com.lmteixeira.personalfinances.usecases.interfaces.UserRepository;
