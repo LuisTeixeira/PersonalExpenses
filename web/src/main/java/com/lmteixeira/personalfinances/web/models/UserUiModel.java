@@ -1,5 +1,7 @@
 package com.lmteixeira.personalfinances.web.models;
 
+import com.lmteixeira.personalfinances.domain.user.User;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
@@ -15,5 +17,9 @@ public class UserUiModel {
 
     public String getEmail() {
         return this.email;
+    }
+
+    public static UserUiModel toUserUiModel(User user) {
+        return new UserUiModel(user.getEmail());
     }
 }

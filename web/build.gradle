@@ -8,6 +8,9 @@ apply plugin: 'io.spring.dependency-management'
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+    implementation project(':domain')
+    implementation project(':usecases')
+    implementation project(':hazelcastrepo')
     implementation 'javax.validation:validation-api:2.0.1.Final'
     runtime 'org.hibernate.validator:hibernate-validator:6.0.2.Final'
     runtime 'org.hibernate.validator:hibernate-validator-annotation-processor:6.0.2.Final'
