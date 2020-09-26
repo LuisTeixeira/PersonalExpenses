@@ -1,8 +1,8 @@
 package com.lmteixeira.personalfinances.spring.rest;
 
 import com.lmteixeira.personalfinances.usecases.exceptions.UserNotFoundException;
-import com.lmteixeira.personalfinances.spring.controller.UserController;
-import com.lmteixeira.personalfinances.spring.models.UserUiModel;
+import com.lmteixeira.personalfinances.webadapter.controller.UserController;
+import com.lmteixeira.personalfinances.webadapter.model.UserWeb;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,21 +21,21 @@ public class SpringUserController {
     }
 
     @GetMapping("/users")
-    public ResponseEntity<List<UserUiModel>> getAllUsers() {
-        List<UserUiModel> allUsers = userController.getAllUsers();
+    public ResponseEntity<List<UserWeb>> getAllUsers() {
+        List<UserWeb> allUsers = userController.getAllUsers();
         return ResponseEntity.ok(allUsers);
     }
 
     @PostMapping("/users")
-    public ResponseEntity<UserUiModel> createUser(@Valid @RequestBody UserUiModel user) {
+    public ResponseEntity<UserWeb> createUser(@Valid @RequestBody UserWeb user) {
         userController.createUser(user);
         return ResponseEntity.status(201).body(user);
     }
 
     @GetMapping("/user/{email}")
-    public ResponseEntity<UserUiModel> getUserByEmail(@PathVariable  String email) {
+    public ResponseEntity<UserWeb> getUserByEmail(@PathVariable  String email) {
         try {
-            UserUiModel user = userController.getUserByEmail(email);
+            UserWeb user = userController.getUserByEmail(email);
             return ResponseEntity.status(200).body(user);
         } catch (UserNotFoundException e) {
             return ResponseEntity.status(404).build();

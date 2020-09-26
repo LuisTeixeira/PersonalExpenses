@@ -1,0 +1,5 @@
+dependencies {
+    implementation project(':domain')
+    implementation project(':usecases')
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}

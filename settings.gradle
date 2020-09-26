@@ -3,3 +3,5 @@ include 'usecases'
 include 'hazelcastrepo'
 include 'spring-app'
 include 'testdata'
+include 'web-adapter'
+
