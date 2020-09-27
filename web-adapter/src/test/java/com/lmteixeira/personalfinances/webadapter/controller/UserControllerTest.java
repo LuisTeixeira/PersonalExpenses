@@ -1,7 +1,7 @@
 package com.lmteixeira.personalfinances.webadapter.controller;
 
-import com.lmteixeira.personalfinances.usecases.exceptions.UserNotFoundException;
 import com.lmteixeira.personalfinances.webadapter.config.TestConfig;
+import com.lmteixeira.personalfinances.webadapter.exception.UserWebNotFoundException;
 import com.lmteixeira.personalfinances.webadapter.model.UserWeb;
 import org.junit.Assert;
 import org.junit.Before;
@@ -35,18 +35,18 @@ public class UserControllerTest {
     }
 
     @Test
-    public void getUserByEmailShouldThrowUserNotFoundExceptionWhenUserDoesNotExist() {
+    public void getUserByEmailShouldThrowUserWebNotFoundExceptionWhenUserDoesNotExist() {
         boolean exceptionThrown = false;
         try {
             UserWeb user = userController.getUserByEmail("test@test.com");
-        } catch (UserNotFoundException exception) {
+        } catch (UserWebNotFoundException exception) {
             exceptionThrown = true;
         }
         Assert.assertTrue(exceptionThrown);
     }
 
     @Test
-    public void getUserByEmailShouldReturnUserAdded() throws UserNotFoundException {
+    public void getUserByEmailShouldReturnUserAdded() throws UserWebNotFoundException {
         UserWeb user = new UserWeb("test@test.com");
         userController.createUser(user);
         UserWeb returnedUser = userController.getUserByEmail("test@test.com");

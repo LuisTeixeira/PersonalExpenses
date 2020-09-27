@@ -8,13 +8,15 @@ apply plugin: 'io.spring.dependency-management'
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-rest'
-    implementation project(':domain')
     implementation project(':usecases')
     implementation project(':web-adapter')
     implementation project(':hazelcastrepo')
     implementation 'javax.validation:validation-api:2.0.1.Final'
+
     runtime 'org.hibernate.validator:hibernate-validator:6.0.2.Final'
     runtime 'org.hibernate.validator:hibernate-validator-annotation-processor:6.0.2.Final'
+
+    testImplementation project(':domain')
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }

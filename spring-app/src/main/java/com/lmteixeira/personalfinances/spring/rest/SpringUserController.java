@@ -1,7 +1,7 @@
 package com.lmteixeira.personalfinances.spring.rest;
 
-import com.lmteixeira.personalfinances.usecases.exceptions.UserNotFoundException;
 import com.lmteixeira.personalfinances.webadapter.controller.UserController;
+import com.lmteixeira.personalfinances.webadapter.exception.UserWebNotFoundException;
 import com.lmteixeira.personalfinances.webadapter.model.UserWeb;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -37,7 +37,7 @@ public class SpringUserController {
         try {
             UserWeb user = userController.getUserByEmail(email);
             return ResponseEntity.status(200).body(user);
-        } catch (UserNotFoundException e) {
+        } catch (UserWebNotFoundException e) {
             return ResponseEntity.status(404).build();
         }
     }

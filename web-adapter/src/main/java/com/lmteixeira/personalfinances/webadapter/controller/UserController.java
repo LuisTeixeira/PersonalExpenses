@@ -5,6 +5,7 @@ import com.lmteixeira.personalfinances.usecases.exceptions.UserNotFoundException
 import com.lmteixeira.personalfinances.usecases.user.CreateUser;
 import com.lmteixeira.personalfinances.usecases.user.FindAllUsers;
 import com.lmteixeira.personalfinances.usecases.user.FindUserByEmail;
+import com.lmteixeira.personalfinances.webadapter.exception.UserWebNotFoundException;
 import com.lmteixeira.personalfinances.webadapter.model.UserWeb;
 
 import java.util.List;
@@ -32,8 +33,12 @@ public class UserController {
         return allUsers.stream().map(UserWeb::toUserUiModel).collect(Collectors.toList());
     }
 
-    public UserWeb getUserByEmail(String email) throws UserNotFoundException {
-        User user = findUserByEmail.findUserByEmail(email);
-        return UserWeb.toUserUiModel(user);
+    public UserWeb getUserByEmail(String email) throws UserWebNotFoundException {
+        try {
+            User user = findUserByEmail.findUserByEmail(email);
+            return UserWeb.toUserUiModel(user);
+        } catch (UserNotFoundException exception) {
+             throw new UserWebNotFoundException(exception.getMessage());
+        }
     }
 }
