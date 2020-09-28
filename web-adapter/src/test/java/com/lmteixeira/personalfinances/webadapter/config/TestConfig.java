@@ -1,13 +1,19 @@
 package com.lmteixeira.personalfinances.webadapter.config;
 
+import com.lmteixeira.personalfinances.usecases.budget.FindAllBudgets;
+import com.lmteixeira.personalfinances.usecases.budget.FindUserBudget;
+import com.lmteixeira.personalfinances.usecases.interfaces.BudgetRepository;
 import com.lmteixeira.personalfinances.usecases.interfaces.UserRepository;
 import com.lmteixeira.personalfinances.usecases.user.CreateUser;
 import com.lmteixeira.personalfinances.usecases.user.FindAllUsers;
 import com.lmteixeira.personalfinances.usecases.user.FindUserByEmail;
+import com.lmteixeira.personalfinances.webadapter.controller.BudgetController;
 import com.lmteixeira.personalfinances.webadapter.controller.UserController;
+import com.lmteixeira.personalfinances.webadapter.repository.TestBudgetRepository;
 import com.lmteixeira.personalfinances.webadapter.repository.TestUserRepository;
 
 public class TestConfig {
+
 
     public UserController userController() {
         UserRepository userRepository = new TestUserRepository();
@@ -17,4 +23,9 @@ public class TestConfig {
         return new UserController(createUser, findAllUsers, findUserByEmail);
     }
 
+    public BudgetController budgetController() {
+        BudgetRepository budgetRepository = new TestBudgetRepository();
+        FindUserBudget findUserBudget = new FindUserBudget(budgetRepository);
+        return new BudgetController(findUserBudget);
+    }
 }
