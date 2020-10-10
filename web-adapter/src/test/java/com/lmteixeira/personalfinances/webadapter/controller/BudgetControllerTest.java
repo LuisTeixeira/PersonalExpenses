@@ -43,4 +43,22 @@ public class BudgetControllerTest {
         Assert.assertNotNull(userBudget);
     }
 
+    @Test
+    public void budgetReturnedAfterCreationShouldHaveBalanceEqualToZero() throws UserNotFoundWebException, BudgetNotFoundWebException {
+        UserWeb user = new UserWeb("test@test.com");
+        userController.createUser(user);
+        budgetController.createBudgetForUser(user);
+        BudgetWeb userBudget = budgetController.getBudgetForUser(user);
+        Assert.assertEquals("0", userBudget.getBalance());
+    }
+
+    @Test
+    public void budgetReturnedAfterCreationShouldNotBeNegative() throws UserNotFoundWebException, BudgetNotFoundWebException {
+        UserWeb user = new UserWeb("test@test.com");
+        userController.createUser(user);
+        budgetController.createBudgetForUser(user);
+        BudgetWeb userBudget = budgetController.getBudgetForUser(user);
+        Assert.assertFalse(userBudget.isNegative());
+    }
+
 }
