@@ -9,13 +9,13 @@ import com.lmteixeira.personalfinances.usecases.models.BudgetModel;
 
 public class FindUserBudget {
 
-    public BudgetRepository budgetRepository;
+    private BudgetRepository budgetRepository;
 
     public FindUserBudget(BudgetRepository budgetRepository) {
         this.budgetRepository = budgetRepository;
     }
 
-    public BudgetModel findUserBudget(String userEmail) {
+    public BudgetModel findUserBudget(String userEmail) throws BudgetNotFoundException {
         try {
             return new BudgetModelConverter().convert(budgetRepository.findBudgetByUserEmail(userEmail));
         } catch (EntityNotFoundException e) {

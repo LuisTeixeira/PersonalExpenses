@@ -1,7 +1,7 @@
 package com.lmteixeira.personalfinances.webadapter.controller;
 
 import com.lmteixeira.personalfinances.webadapter.config.TestConfig;
-import com.lmteixeira.personalfinances.webadapter.exception.UserWebNotFoundException;
+import com.lmteixeira.personalfinances.webadapter.exception.UserNotFoundWebException;
 import com.lmteixeira.personalfinances.webadapter.model.UserWeb;
 import org.junit.Assert;
 import org.junit.Before;
@@ -39,14 +39,14 @@ public class UserControllerTest {
         boolean exceptionThrown = false;
         try {
             UserWeb user = userController.getUserByEmail("test@test.com");
-        } catch (UserWebNotFoundException exception) {
+        } catch (UserNotFoundWebException exception) {
             exceptionThrown = true;
         }
         Assert.assertTrue(exceptionThrown);
     }
 
     @Test
-    public void getUserByEmailShouldReturnUserAdded() throws UserWebNotFoundException {
+    public void getUserByEmailShouldReturnUserAdded() throws UserNotFoundWebException {
         UserWeb user = new UserWeb("test@test.com");
         userController.createUser(user);
         UserWeb returnedUser = userController.getUserByEmail("test@test.com");

@@ -12,7 +12,7 @@ public class GetIncomeCount {
         this.budgetRepository = budgetRepository;
     }
 
-    public Long getIncomeCount(String userEmail) {
+    public Long getIncomeCount(String userEmail) throws BudgetNotFoundException {
         try {
             return budgetRepository.getIncomeCount(userEmail);
         } catch (EntityNotFoundException e) {

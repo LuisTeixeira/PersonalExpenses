@@ -14,7 +14,7 @@ public class GetIncomeTotal {
         this.budgetRepository = budgetRepository;
     }
 
-    public BigDecimal getTotal(String userEmail) {
+    public BigDecimal getTotal(String userEmail) throws BudgetNotFoundException {
         try {
             return budgetRepository.getIncomeTotal(userEmail);
         } catch (EntityNotFoundException e) {

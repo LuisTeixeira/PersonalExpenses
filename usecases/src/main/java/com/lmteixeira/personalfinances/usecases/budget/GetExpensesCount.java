@@ -12,7 +12,7 @@ public class GetExpensesCount {
         this.budgetRepository = budgetRepository;
     }
 
-    public Long getBudgetExpensesCount(String userEmail) {
+    public Long getBudgetExpensesCount(String userEmail) throws BudgetNotFoundException {
         try {
             return budgetRepository.getExpensesCount(userEmail);
         } catch (EntityNotFoundException ex) {

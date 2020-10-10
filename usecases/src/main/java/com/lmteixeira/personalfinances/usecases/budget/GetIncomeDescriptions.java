@@ -15,7 +15,7 @@ public class GetIncomeDescriptions {
         this.budgetRepository = budgetRepository;
     }
 
-    public List<String> getIncomeDescriptions(String userEmail) {
+    public List<String> getIncomeDescriptions(String userEmail) throws BudgetNotFoundException {
         try {
             return budgetRepository.getIncomeDescriptions(userEmail);
         } catch (EntityNotFoundException e) {

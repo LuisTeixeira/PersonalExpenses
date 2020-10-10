@@ -18,7 +18,7 @@ public class AddExpense {
         this.budgetRepository = budgetRepository;
     }
 
-    public void addExpense(String userEmail, String description, BigDecimal value) {
+    public void addExpense(String userEmail, String description, BigDecimal value) throws BudgetNotFoundException {
         try {
             Budget budget = budgetRepository.findBudgetByUserEmail(userEmail);
             TransactionFactory transactionFactory = new TransactionFactory();
