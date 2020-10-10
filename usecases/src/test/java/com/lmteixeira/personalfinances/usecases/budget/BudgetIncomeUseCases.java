@@ -31,7 +31,7 @@ public class BudgetIncomeUseCases {
     }
 
     @Test
-    public void afterAddingIncomeToTheBudgetGetBudgetIncomeCountShouldReturnAListContainingTheAddedIncome() throws UserNotFoundException {
+    public void afterAddingIncomeToTheBudgetGetBudgetIncomeCountShouldReturnAListContainingTheAddedIncome() throws UserNotFoundException, BudgetNotFoundException {
         utils.createUserAndBudget();
         addIncome.addIncome(utils.getUserEmail(), "Test Income", BigDecimal.valueOf(23d));
         Long incomeCount = getIncomeCount.getIncomeCount(utils.getUserEmail());
@@ -61,7 +61,7 @@ public class BudgetIncomeUseCases {
     }
 
     @Test
-    public void getIncomeDescriptionsShouldReturnAListWithDescriptionOfAllExistingIncome() throws UserNotFoundException {
+    public void getIncomeDescriptionsShouldReturnAListWithDescriptionOfAllExistingIncome() throws UserNotFoundException, BudgetNotFoundException {
         String[] incomeDescriptions = new String[]{"First Income", "Second Income", "Third Income"};
         utils.createUserAndBudget();
         for (String description : incomeDescriptions) {
@@ -85,7 +85,7 @@ public class BudgetIncomeUseCases {
     }
 
     @Test
-    public void afterAddingAnIncomeToTheBudgetIncomeTotalShouldReturnTheValueOfTheAddedIncome() throws UserNotFoundException {
+    public void afterAddingAnIncomeToTheBudgetIncomeTotalShouldReturnTheValueOfTheAddedIncome() throws UserNotFoundException, BudgetNotFoundException {
         utils.createUserAndBudget();
         addIncome.addIncome(utils.getUserEmail(), "Test Income", BigDecimal.valueOf(32d));
         BigDecimal total = getIncomeTotal.getTotal(utils.getUserEmail());

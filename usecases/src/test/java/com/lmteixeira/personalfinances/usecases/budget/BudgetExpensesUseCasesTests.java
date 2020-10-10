@@ -31,7 +31,7 @@ public class BudgetExpensesUseCasesTests {
     }
 
     @Test
-    public void afterAddingAnExpenseToTheBudgetGetBudgetExpensesCountShouldReturnAListContainingTheAddedExpense() throws UserNotFoundException {
+    public void afterAddingAnExpenseToTheBudgetGetBudgetExpensesCountShouldReturnAListContainingTheAddedExpense() throws UserNotFoundException, BudgetNotFoundException {
         utils.createUserAndBudget();
         addExpense.addExpense(utils.getUserEmail(), "Test expense", BigDecimal.valueOf(23d));
         Long budgetExpensesCount = getExpensesCount.getBudgetExpensesCount(utils.getUserEmail());
@@ -61,7 +61,7 @@ public class BudgetExpensesUseCasesTests {
     }
 
     @Test
-    public void getExpenseDescriptionsShouldReturnAListWithDescriptionOfAllExistingExpenses() throws UserNotFoundException {
+    public void getExpenseDescriptionsShouldReturnAListWithDescriptionOfAllExistingExpenses() throws UserNotFoundException, BudgetNotFoundException {
         String[] expenseDescriptions = new String[]{"First Expense", "Second Expense"};
         utils.createUserAndBudget();
         for (String description : expenseDescriptions) {
@@ -85,7 +85,7 @@ public class BudgetExpensesUseCasesTests {
     }
 
     @Test
-    public void afterAddingAnExpenseToTheBudgetGetBudgetExpensesTotalShouldReturnTheValueOfTheAddedExpense() throws UserNotFoundException {
+    public void afterAddingAnExpenseToTheBudgetGetBudgetExpensesTotalShouldReturnTheValueOfTheAddedExpense() throws UserNotFoundException, BudgetNotFoundException {
         utils.createUserAndBudget();
         addExpense.addExpense(utils.getUserEmail(), "Test Expense", BigDecimal.valueOf(23d));
         BigDecimal total = getExpensesTotal.getTotal(utils.getUserEmail());
