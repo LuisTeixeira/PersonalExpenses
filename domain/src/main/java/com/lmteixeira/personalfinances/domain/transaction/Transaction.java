@@ -18,4 +18,6 @@ public interface Transaction {
     String getValueStringRepresentation();
 
     String getDescriptionStringRepresentation();
+
+    Long getTimestamp();
 }

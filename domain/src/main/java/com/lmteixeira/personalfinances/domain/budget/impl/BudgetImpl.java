@@ -54,13 +54,23 @@ public class BudgetImpl implements Budget {
     }
 
     @Override
-    public List<String> getExpenseDescriptions() {
+    public List<String> getForeseenExpenseDescriptions() {
         return foreseenExpenses.getTransactionDescriptions();
     }
 
     @Override
     public List<String> getForeseenIncomeDescriptions() {
         return foreseenIncome.getTransactionDescriptions();
+    }
+
+    @Override
+    public TransactionAccount getForeseenExpenses() {
+        return foreseenExpenses;
+    }
+
+    @Override
+    public TransactionAccount getForeseenIncome() {
+        return foreseenIncome;
     }
 
 

@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 public class TransactionAccountImpl implements TransactionAccount {
 
     private BigDecimal total = BigDecimal.valueOf( 0 );
-    private List<Transaction> expenses = new ArrayList<>();
+    private List<Transaction> transactions = new ArrayList<>();
 
     @Override
     public BigDecimal getTotal() {
@@ -25,34 +25,38 @@ public class TransactionAccountImpl implements TransactionAccount {
             throw new InvalidTransactionValueException( "Value " + expense.getValueStringRepresentation() + " is less than zero" );
         }
         total = expense.sum( total );
-        expenses.add( expense );
+        transactions.add( expense );
     }
 
     @Override
     public Long getTransactionCount() {
-        return Long.valueOf( expenses.size() );
+        return Long.valueOf( transactions.size() );
     }
 
     @Override
     public boolean isEmpty() {
-        return expenses.size() == 0;
+        return transactions.size() == 0;
     }
 
     @Override
     public void remove(Transaction expense) {
         total = expense.subtractFrom( total );
-        expenses.remove( expense );
+        transactions.remove( expense );
     }
 
     @Override
     public BigDecimal getAverage() {
-        return total.divide( BigDecimal.valueOf( expenses.size() ), 2, RoundingMode.HALF_UP );
+        return total.divide( BigDecimal.valueOf( transactions.size() ), 2, RoundingMode.HALF_UP );
     }
-
 
     @Override
     public List<String> getTransactionDescriptions() {
-        return expenses.stream().map(expense -> expense.getDescriptionStringRepresentation()).collect(Collectors.toList());
+        return transactions.stream().map(expense -> expense.getDescriptionStringRepresentation()).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Transaction> getTransactions() {
+        return transactions;
     }
 
     public class InvalidTransactionValueException extends RuntimeException {

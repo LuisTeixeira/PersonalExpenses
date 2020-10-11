@@ -17,7 +17,7 @@ public class UserRepositoryTest {
 
     @Before
     public void setup() {
-        this.userRepository = new HazelcastRepository();
+        this.userRepository = new HazelcastUserRepository();
         this.userTestData = UserTestData.getInstance();
     }
 

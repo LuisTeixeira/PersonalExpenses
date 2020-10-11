@@ -55,4 +55,9 @@ public class TransactionImpl implements Transaction {
     public String getDescriptionStringRepresentation() {
         return description;
     }
+
+    @Override
+    public Long getTimestamp() {
+        return timestamp;
+    }
 }

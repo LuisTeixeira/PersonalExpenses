@@ -1,5 +1,6 @@
 package com.lmteixeira.personalfinances.domain.budget;
 
+import com.lmteixeira.personalfinances.domain.account.TransactionAccount;
 import com.lmteixeira.personalfinances.domain.transaction.Transaction;
 
 import java.math.BigDecimal;
@@ -22,7 +23,11 @@ public interface Budget {
 
     BigDecimal total();
 
-    List<String> getExpenseDescriptions();
+    List<String> getForeseenExpenseDescriptions();
 
     List<String> getForeseenIncomeDescriptions();
+
+    TransactionAccount getForeseenExpenses();
+
+    TransactionAccount getForeseenIncome();
 }

@@ -120,7 +120,7 @@ public class BudgetTest {
         budget.addForeseenExpense(firstExpense);
         budget.addForeseenExpense(secondExpense);
 
-        List<String> retrievedExpenseDescriptions = budget.getExpenseDescriptions();
+        List<String> retrievedExpenseDescriptions = budget.getForeseenExpenseDescriptions();
 
         for (int i = 0; i < retrievedExpenseDescriptions.size(); i++) {
             Assert.assertEquals(retrievedExpenseDescriptions.get(i), expenseDescriptions[i]);

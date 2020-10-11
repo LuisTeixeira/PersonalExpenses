@@ -19,4 +19,6 @@ public interface TransactionAccount {
     List<String> getTransactionDescriptions();
 
     boolean isEmpty();
+
+    List<Transaction> getTransactions();
 }

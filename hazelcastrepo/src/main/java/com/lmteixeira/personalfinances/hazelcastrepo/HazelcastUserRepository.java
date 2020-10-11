@@ -10,7 +10,7 @@ import com.lmteixeira.personalfinances.usecases.interfaces.exception.EntityNotFo
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class HazelcastRepository implements UserRepository {
+public class HazelcastUserRepository implements UserRepository {
 
     private static final HazelcastInstance HAZELCAST = Hazelcast.getInstance();
     private static final String MAP_NAME = "user";
