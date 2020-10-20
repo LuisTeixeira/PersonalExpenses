@@ -31,7 +31,12 @@ public class HazelcastBudgetRepository implements BudgetRepository {
 
     @Override
     public Budget findBudgetByUserEmail(String userEmail) throws EntityNotFoundException {
-        return null;
+        IMap<String, HazelcastBudget> map = HAZELCAST.getMap( MAP_NAME );
+        HazelcastBudget hazelcastBudget = map.get( userEmail );
+        if ( hazelcastBudget == null ) {
+            throw new EntityNotFoundException( "Budget not found for user" + userEmail );
+        }
+        return hazelcastBudget.toBudget();
     }
 
     @Override
@@ -67,5 +72,9 @@ public class HazelcastBudgetRepository implements BudgetRepository {
     @Override
     public BigDecimal getIncomeTotal(String userEmail) throws EntityNotFoundException {
         return null;
+    }
+
+    public void destroy() {
+        HAZELCAST.getMap( MAP_NAME ).destroy();
     }
 }
