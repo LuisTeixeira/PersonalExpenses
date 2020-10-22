@@ -41,12 +41,19 @@ public class HazelcastBudgetRepository implements BudgetRepository {
 
     @Override
     public Long getExpensesCount(String userEmail) throws EntityNotFoundException {
-        return null;
+        IMap<String, HazelcastBudget> map = HAZELCAST.getMap( MAP_NAME );
+        HazelcastBudget hazelcastBudget = map.get( userEmail );
+        if ( hazelcastBudget == null ) {
+            throw new EntityNotFoundException( "Budget not found for user" + userEmail );
+        }
+        return hazelcastBudget.toBudget().getForeseenExpensesCount();
     }
 
     @Override
-    public void save(Budget budget) {
-
+    public void save(String userEmail, Budget budget) {
+        HazelcastBudget hazelcastBudget = HazelcastBudget.fromBudget(budget);
+        IMap budgetMap = HAZELCAST.getMap(MAP_NAME);
+        budgetMap.put(userEmail, hazelcastBudget);
     }
 
     @Override

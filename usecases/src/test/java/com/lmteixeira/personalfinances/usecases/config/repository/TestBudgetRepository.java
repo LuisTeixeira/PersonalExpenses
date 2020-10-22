@@ -43,7 +43,7 @@ public class TestBudgetRepository implements BudgetRepository {
     }
 
     @Override
-    public void save(Budget budget) {
+    public void save(String userEmail, Budget budget) {
         // Don't need to do anything since this mock repository is a map and only stores a pointer to the object
     }
 

@@ -24,7 +24,7 @@ public class AddIncome {
             TransactionFactory transactionFactory = new TransactionFactory();
             Transaction income = transactionFactory.createTransaction(value, description, new Date().getTime());
             budget.addForeseenIncome(income);
-            budgetRepository.save(budget);
+            budgetRepository.save( userEmail, budget );
         } catch (EntityNotFoundException e) {
             throw new BudgetNotFoundException("Budget for user with email " + userEmail + " not found");
         }
