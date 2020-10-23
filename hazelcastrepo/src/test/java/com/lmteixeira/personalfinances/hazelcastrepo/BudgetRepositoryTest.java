@@ -2,6 +2,7 @@ package com.lmteixeira.personalfinances.hazelcastrepo;
 
 import com.lmteixeira.personalfinances.domain.budget.Budget;
 import com.lmteixeira.personalfinances.domain.budget.impl.BudgetImpl;
+import com.lmteixeira.personalfinances.domain.transaction.Transaction;
 import com.lmteixeira.personalfinances.domain.transaction.factory.TransactionFactory;
 import com.lmteixeira.personalfinances.usecases.interfaces.BudgetRepository;
 import com.lmteixeira.personalfinances.usecases.interfaces.exception.EntityNotFoundException;
@@ -49,7 +50,7 @@ public class BudgetRepositoryTest {
         String userEmail = "test@test.com";
         boolean exceptionThrown = false;
         try {
-            Budget budget = budgetRepository.findBudgetByUserEmail( userEmail );
+            budgetRepository.findBudgetByUserEmail( userEmail );
         } catch ( EntityNotFoundException e ) {
             exceptionThrown = true;
         }
@@ -80,12 +81,46 @@ public class BudgetRepositoryTest {
         Budget budget = new BudgetImpl();
         budgetRepository.create( userEmail, budget );
         int expensesAdded = 3;
-        TransactionFactory transactionFactory = new TransactionFactory();
         for ( int i = 0; i < 3; i++ ) {
-            budget.addForeseenExpense( transactionFactory.createTransaction( BigDecimal.valueOf( 0 ), "Test", 0L ) );
+            budget.addForeseenExpense( getTransaction( BigDecimal.valueOf( 0 ), "Test", 0L ) );
         }
         budgetRepository.save(userEmail , budget );
         Long expensesCount = budgetRepository.getExpensesCount( userEmail );
         Assert.assertEquals( Long.valueOf( expensesAdded), expensesCount );
+    }
+
+    @Test
+    public void getExpensesDescriptionsShouldReturnAnEmptyListWhenNotExpensesWereAdded() throws EntityNotFoundException {
+        String userEmail = "test@test.com";
+        Budget budget = new BudgetImpl();
+        budgetRepository.create(userEmail, budget);
+        List<String> expensesDescriptions = budgetRepository.getExpenseDescriptions(userEmail);
+        Assert.assertEquals(0, expensesDescriptions.size());
+    }
+
+    @Test
+    public void getExpensesDescriptionsShouldReturnAListWithTheSameNumberOfElementsAsExpensesAdded() throws EntityNotFoundException {
+        String userEmail = "test@test.com";
+        Budget budget = new BudgetImpl();
+        budget.addForeseenExpense( getTransaction( BigDecimal.valueOf( 0 ), "Test", 0L ));
+        budgetRepository.create(userEmail, budget);
+        List<String> expenseDescriptions = budgetRepository.getExpenseDescriptions(userEmail);
+        Assert.assertEquals(1, expenseDescriptions.size());
+    }
+
+    @Test
+    public void getExpensesDescriptionsShouldReturnAListContainingTheDescriptionsOfTheExpensesAdded() throws EntityNotFoundException {
+        String userEmail = "test@test.com";
+        String expenseDescription = "Test";
+        Budget budget = new BudgetImpl();
+        budget.addForeseenExpense( getTransaction( BigDecimal.valueOf( 0 ), expenseDescription, 0L ));
+        budgetRepository.create(userEmail, budget);
+        List<String> expenseDescriptions = budgetRepository.getExpenseDescriptions(userEmail);
+        Assert.assertEquals(expenseDescription, expenseDescriptions.get(0));
+    }
+
+    private Transaction getTransaction(BigDecimal value, String description, Long timestamp) {
+        TransactionFactory transactionFactory = new TransactionFactory();
+        return transactionFactory.createTransaction(value, description, timestamp);
     }
 }

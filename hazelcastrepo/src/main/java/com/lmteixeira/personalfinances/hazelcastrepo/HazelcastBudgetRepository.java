@@ -31,21 +31,13 @@ public class HazelcastBudgetRepository implements BudgetRepository {
 
     @Override
     public Budget findBudgetByUserEmail(String userEmail) throws EntityNotFoundException {
-        IMap<String, HazelcastBudget> map = HAZELCAST.getMap( MAP_NAME );
-        HazelcastBudget hazelcastBudget = map.get( userEmail );
-        if ( hazelcastBudget == null ) {
-            throw new EntityNotFoundException( "Budget not found for user" + userEmail );
-        }
+        HazelcastBudget hazelcastBudget = getHazelcastBudget(userEmail);
         return hazelcastBudget.toBudget();
     }
 
     @Override
     public Long getExpensesCount(String userEmail) throws EntityNotFoundException {
-        IMap<String, HazelcastBudget> map = HAZELCAST.getMap( MAP_NAME );
-        HazelcastBudget hazelcastBudget = map.get( userEmail );
-        if ( hazelcastBudget == null ) {
-            throw new EntityNotFoundException( "Budget not found for user" + userEmail );
-        }
+        HazelcastBudget hazelcastBudget = getHazelcastBudget(userEmail);
         return hazelcastBudget.toBudget().getForeseenExpensesCount();
     }
 
@@ -58,7 +50,8 @@ public class HazelcastBudgetRepository implements BudgetRepository {
 
     @Override
     public List<String> getExpenseDescriptions(String userEmail) throws EntityNotFoundException {
-        return null;
+        HazelcastBudget hazelcastBudget = getHazelcastBudget(userEmail);
+        return hazelcastBudget.toBudget().getForeseenExpenseDescriptions();
     }
 
     @Override
@@ -83,5 +76,14 @@ public class HazelcastBudgetRepository implements BudgetRepository {
 
     public void destroy() {
         HAZELCAST.getMap( MAP_NAME ).destroy();
+    }
+
+    private HazelcastBudget getHazelcastBudget(String userEmail) throws EntityNotFoundException {
+        IMap<String, HazelcastBudget> map = HAZELCAST.getMap( MAP_NAME );
+        HazelcastBudget hazelcastBudget = map.get( userEmail );
+        if ( hazelcastBudget == null ) {
+            throw new EntityNotFoundException( "Budget not found for user" + userEmail );
+        }
+        return hazelcastBudget;
     }
 }
