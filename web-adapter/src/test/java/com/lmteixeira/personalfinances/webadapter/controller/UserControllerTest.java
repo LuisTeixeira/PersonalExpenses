@@ -27,7 +27,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void getAllUserShouldReturnContainingUserAdded() {
+    public void getAllUserShouldReturnContainingUserAdded() throws UserNotFoundWebException {
         UserWeb user = new UserWeb("test@test.com");
         userController.createUser(user);
         UserWeb returnedUser = userController.getAllUsers().get(0);

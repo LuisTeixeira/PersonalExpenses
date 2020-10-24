@@ -1,5 +1,6 @@
 package com.lmteixeira.personalfinances.spring.config;
 
+import com.lmteixeira.personalfinances.hazelcastrepo.HazelcastBudgetRepository;
 import com.lmteixeira.personalfinances.hazelcastrepo.HazelcastUserRepository;
 import com.lmteixeira.personalfinances.webadapter.config.SpringConfig;
 import com.lmteixeira.personalfinances.webadapter.controller.UserController;
@@ -10,7 +11,8 @@ import org.springframework.context.annotation.Configuration;
 public class Config {
 
     private final HazelcastUserRepository hazelcastUserRepository = new HazelcastUserRepository();
-    private final SpringConfig springConfig = new SpringConfig(hazelcastUserRepository);
+    private final HazelcastBudgetRepository hazelcastBudgetRepository = new HazelcastBudgetRepository();
+    private final SpringConfig springConfig = new SpringConfig(hazelcastUserRepository, hazelcastBudgetRepository);
 
     @Bean
     public UserController userController() {

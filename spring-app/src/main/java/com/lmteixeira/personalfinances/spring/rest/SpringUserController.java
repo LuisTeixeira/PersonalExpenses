@@ -28,8 +28,12 @@ public class SpringUserController {
 
     @PostMapping("/users")
     public ResponseEntity<UserWeb> createUser(@Valid @RequestBody UserWeb user) {
-        userController.createUser(user);
-        return ResponseEntity.status(201).body(user);
+        try {
+            userController.createUser(user);
+            return ResponseEntity.status(201).body(user);
+        } catch (UserNotFoundWebException e) {
+            return ResponseEntity.status(500).build();
+        }
     }
 
     @GetMapping("/user/{email}")

@@ -1,7 +1,10 @@
 package com.lmteixeira.personalfinances.usecases.user;
 
+import com.lmteixeira.personalfinances.usecases.budget.FindUserBudget;
 import com.lmteixeira.personalfinances.usecases.config.TestConfig;
+import com.lmteixeira.personalfinances.usecases.exceptions.BudgetNotFoundException;
 import com.lmteixeira.personalfinances.usecases.exceptions.UserNotFoundException;
+import com.lmteixeira.personalfinances.usecases.models.BudgetModel;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,6 +15,7 @@ public class UserUseCasesTest {
     private FindAllUsers findAllUsers;
     private CreateUser createUser;
     private FindUserByEmail findUserByEmail;
+    private FindUserBudget findUserBudget;
 
     @Before
     public void setup() {
@@ -19,6 +23,7 @@ public class UserUseCasesTest {
         findAllUsers = config.findAllUsers();
         createUser = config.createUser();
         findUserByEmail = config.findUserByEmail();
+        findUserBudget = config.findUserBudget();
     }
 
     @Test
@@ -27,7 +32,7 @@ public class UserUseCasesTest {
     }
 
     @Test
-    public void afterAddingOneUserFindAllUsersShouldReturnOneUser() {
+    public void afterAddingOneUserFindAllUsersShouldReturnOneUser() throws UserNotFoundException {
         String userEmail = "test@gmail.com";
         createUser.create(userEmail);
         Assert.assertEquals(1, findAllUsers.findAllUsers().size());
@@ -50,6 +55,14 @@ public class UserUseCasesTest {
             exceptionThrown = true;
         }
         Assert.assertTrue(exceptionThrown);
+    }
+
+    @Test
+    public void creatingAUserShouldAlsoCreateTheBudgetAssociatedWithTheUser() throws BudgetNotFoundException, UserNotFoundException {
+        String userEmail = "test@gmail.com";
+        createUser.create(userEmail);
+        BudgetModel userBudget = findUserBudget.findUserBudget(userEmail);
+        Assert.assertNotNull(userBudget);
     }
 
 }

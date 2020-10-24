@@ -1,7 +1,6 @@
 package com.lmteixeira.personalfinances.webadapter.config;
 
 import com.lmteixeira.personalfinances.usecases.budget.CreateBudget;
-import com.lmteixeira.personalfinances.usecases.budget.FindAllBudgets;
 import com.lmteixeira.personalfinances.usecases.budget.FindUserBudget;
 import com.lmteixeira.personalfinances.usecases.interfaces.BudgetRepository;
 import com.lmteixeira.personalfinances.usecases.interfaces.UserRepository;
@@ -19,7 +18,8 @@ public class TestConfig {
     BudgetRepository budgetRepository = new TestBudgetRepository();
 
     public UserController userController() {
-        CreateUser createUser = new CreateUser(userRepository);
+        CreateBudget createBudget = new CreateBudget(userRepository, budgetRepository);
+        CreateUser createUser = new CreateUser(userRepository, createBudget);
         FindAllUsers findAllUsers = new FindAllUsers(userRepository);
         FindUserByEmail findUserByEmail = new FindUserByEmail(userRepository);
         return new UserController(createUser, findAllUsers, findUserByEmail);

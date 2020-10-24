@@ -15,7 +15,7 @@ public class TestConfig {
     private BudgetRepository budgetRepository = new TestBudgetRepository();
 
     public CreateUser createUser() {
-        return new CreateUser(userRepository);
+        return new CreateUser(userRepository, createBudget());
     }
 
     public FindAllUsers findAllUsers() {

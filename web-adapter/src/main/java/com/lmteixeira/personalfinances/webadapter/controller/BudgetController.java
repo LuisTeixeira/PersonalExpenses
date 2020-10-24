@@ -1,6 +1,5 @@
 package com.lmteixeira.personalfinances.webadapter.controller;
 
-import com.lmteixeira.personalfinances.domain.budget.Budget;
 import com.lmteixeira.personalfinances.usecases.budget.CreateBudget;
 import com.lmteixeira.personalfinances.usecases.budget.FindUserBudget;
 import com.lmteixeira.personalfinances.usecases.exceptions.BudgetNotFoundException;
@@ -10,9 +9,6 @@ import com.lmteixeira.personalfinances.webadapter.exception.BudgetNotFoundWebExc
 import com.lmteixeira.personalfinances.webadapter.exception.UserNotFoundWebException;
 import com.lmteixeira.personalfinances.webadapter.model.BudgetWeb;
 import com.lmteixeira.personalfinances.webadapter.model.UserWeb;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class BudgetController {
 
