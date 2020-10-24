@@ -8,6 +8,7 @@ import com.lmteixeira.personalfinances.usecases.interfaces.BudgetRepository;
 import com.lmteixeira.personalfinances.usecases.interfaces.exception.EntityNotFoundException;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -62,17 +63,20 @@ public class HazelcastBudgetRepository implements BudgetRepository {
 
     @Override
     public Long getIncomeCount(String userEmail) throws EntityNotFoundException {
-        return null;
+        HazelcastBudget hazelcastBudget = getHazelcastBudget( userEmail );
+        return hazelcastBudget.toBudget().getForeseenIncomeCount();
     }
 
     @Override
     public List<String> getIncomeDescriptions(String userEmail) throws EntityNotFoundException {
-        return null;
+        HazelcastBudget hazelcastBudget = getHazelcastBudget( userEmail );
+        return hazelcastBudget.toBudget().getForeseenIncomeDescriptions();
     }
 
     @Override
     public BigDecimal getIncomeTotal(String userEmail) throws EntityNotFoundException {
-        return null;
+        HazelcastBudget hazelcastBudget = getHazelcastBudget( userEmail );
+        return hazelcastBudget.toBudget().getForeseenIncomeTotal();
     }
 
     public void destroy() {

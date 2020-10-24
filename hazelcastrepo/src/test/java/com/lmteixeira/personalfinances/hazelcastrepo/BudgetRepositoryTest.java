@@ -67,6 +67,7 @@ public class BudgetRepositoryTest {
         Assert.assertNotNull( result );
     }
 
+    // Expenses
     @Test
     public void getExpensesCountShouldReturnZeroWhenNoExpenseWasAdded() throws EntityNotFoundException {
         String userEmail = "test@test.com";
@@ -130,7 +131,7 @@ public class BudgetRepositoryTest {
     }
 
     @Test
-    public void getExpensesTotalhouldReturnTheValueOfTheExpensesWereAdded() throws EntityNotFoundException {
+    public void getExpensesTotalShouldReturnTheValueOfTheExpensesWereAdded() throws EntityNotFoundException {
         String userEmail = "test@test.com";
         String expenseDescription = "Test";
         Budget budget = new BudgetImpl();
@@ -138,6 +139,81 @@ public class BudgetRepositoryTest {
         budget.addForeseenExpense(getTransaction(BigDecimal.valueOf(23d), expenseDescription, 0L));
         budgetRepository.save( userEmail, budget );
         BigDecimal total = budgetRepository.getExpensesTotal(userEmail);
+        Assert.assertTrue(BigDecimalsUtilities.compareBigDecimals(BigDecimal.valueOf(23d), total));
+    }
+
+    // Income
+    @Test
+    public void getIncomeCountShouldReturnZeroWhenNoExpenseWasAdded() throws EntityNotFoundException {
+        String userEmail = "test@test.com";
+        Budget budget = new BudgetImpl();
+        budgetRepository.create( userEmail, budget );
+        Long incomeCount = budgetRepository.getIncomeCount( userEmail );
+        Assert.assertEquals( Long.valueOf( 0 ), incomeCount );
+    }
+
+    @Test
+    public void getIncomeCountShouldReturnTheNumberOfExpensesAdded() throws EntityNotFoundException {
+        String userEmail = "test@test.com";
+        Budget budget = new BudgetImpl();
+        budgetRepository.create( userEmail, budget );
+        int incomeAdded = 3;
+        for ( int i = 0; i < 3; i++ ) {
+            budget.addForeseenIncome( getTransaction( BigDecimal.valueOf( 0 ), "Test", 0L ) );
+        }
+        budgetRepository.save(userEmail , budget );
+        Long incomeCount = budgetRepository.getIncomeCount( userEmail );
+        Assert.assertEquals( Long.valueOf( incomeAdded), incomeCount );
+    }
+
+    @Test
+    public void getIncomeDescriptionsShouldReturnAnEmptyListWhenNotExpensesWereAdded() throws EntityNotFoundException {
+        String userEmail = "test@test.com";
+        Budget budget = new BudgetImpl();
+        budgetRepository.create(userEmail, budget);
+        List<String> incomeDescriptions = budgetRepository.getIncomeDescriptions(userEmail);
+        Assert.assertEquals(0, incomeDescriptions.size());
+    }
+
+    @Test
+    public void getIncomeDescriptionsShouldReturnAListWithTheSameNumberOfElementsAsExpensesAdded() throws EntityNotFoundException {
+        String userEmail = "test@test.com";
+        Budget budget = new BudgetImpl();
+        budget.addForeseenIncome( getTransaction( BigDecimal.valueOf( 0 ), "Test", 0L ));
+        budgetRepository.create(userEmail, budget);
+        List<String> incomeDescriptions = budgetRepository.getIncomeDescriptions(userEmail);
+        Assert.assertEquals(1, incomeDescriptions.size());
+    }
+
+    @Test
+    public void getIncomeDescriptionsShouldReturnAListContainingTheDescriptionsOfTheExpensesAdded() throws EntityNotFoundException {
+        String userEmail = "test@test.com";
+        String incomeDescription = "Test";
+        Budget budget = new BudgetImpl();
+        budget.addForeseenIncome( getTransaction( BigDecimal.valueOf( 0 ), incomeDescription, 0L ));
+        budgetRepository.create(userEmail, budget);
+        List<String> incomeDescriptions = budgetRepository.getIncomeDescriptions(userEmail);
+        Assert.assertEquals(incomeDescription, incomeDescriptions.get(0));
+    }
+
+    @Test
+    public void getIncomeTotalShouldReturnZeroWhenNoExpensesWereAdded() throws EntityNotFoundException {
+        String userEmail = "test@test.com";
+        Budget budget = new BudgetImpl();
+        budgetRepository.create( userEmail, budget );
+        BigDecimal total = budgetRepository.getIncomeTotal( userEmail );
+        Assert.assertTrue( BigDecimalsUtilities.compareBigDecimals( BigDecimal.ZERO, total) );
+    }
+
+    @Test
+    public void getIncomeTotalShouldReturnTheValueOfTheExpensesWereAdded() throws EntityNotFoundException {
+        String userEmail = "test@test.com";
+        String incomeDescription = "Test";
+        Budget budget = new BudgetImpl();
+        budgetRepository.create( userEmail, budget );
+        budget.addForeseenIncome(getTransaction(BigDecimal.valueOf(23d), incomeDescription, 0L));
+        budgetRepository.save( userEmail, budget );
+        BigDecimal total = budgetRepository.getIncomeTotal(userEmail);
         Assert.assertTrue(BigDecimalsUtilities.compareBigDecimals(BigDecimal.valueOf(23d), total));
     }
 
