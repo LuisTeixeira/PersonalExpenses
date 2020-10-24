@@ -4,6 +4,7 @@ import com.lmteixeira.personalfinances.domain.budget.Budget;
 import com.lmteixeira.personalfinances.domain.budget.impl.BudgetImpl;
 import com.lmteixeira.personalfinances.domain.transaction.Transaction;
 import com.lmteixeira.personalfinances.domain.transaction.factory.TransactionFactory;
+import com.lmteixeira.personalfinances.hazelcastrepo.utilities.BigDecimalsUtilities;
 import com.lmteixeira.personalfinances.usecases.interfaces.BudgetRepository;
 import com.lmteixeira.personalfinances.usecases.interfaces.exception.EntityNotFoundException;
 import org.junit.After;
@@ -117,6 +118,27 @@ public class BudgetRepositoryTest {
         budgetRepository.create(userEmail, budget);
         List<String> expenseDescriptions = budgetRepository.getExpenseDescriptions(userEmail);
         Assert.assertEquals(expenseDescription, expenseDescriptions.get(0));
+    }
+
+    @Test
+    public void getExpensesTotalShouldReturnZeroWhenNoExpensesWereAdded() throws EntityNotFoundException {
+        String userEmail = "test@test.com";
+        Budget budget = new BudgetImpl();
+        budgetRepository.create( userEmail, budget );
+        BigDecimal total = budgetRepository.getExpensesTotal( userEmail );
+        Assert.assertTrue( BigDecimalsUtilities.compareBigDecimals( BigDecimal.ZERO, total) );
+    }
+
+    @Test
+    public void getExpensesTotalhouldReturnTheValueOfTheExpensesWereAdded() throws EntityNotFoundException {
+        String userEmail = "test@test.com";
+        String expenseDescription = "Test";
+        Budget budget = new BudgetImpl();
+        budgetRepository.create( userEmail, budget );
+        budget.addForeseenExpense(getTransaction(BigDecimal.valueOf(23d), expenseDescription, 0L));
+        budgetRepository.save( userEmail, budget );
+        BigDecimal total = budgetRepository.getExpensesTotal(userEmail);
+        Assert.assertTrue(BigDecimalsUtilities.compareBigDecimals(BigDecimal.valueOf(23d), total));
     }
 
     private Transaction getTransaction(BigDecimal value, String description, Long timestamp) {

@@ -56,7 +56,8 @@ public class HazelcastBudgetRepository implements BudgetRepository {
 
     @Override
     public BigDecimal getExpensesTotal(String userEmail) throws EntityNotFoundException {
-        return null;
+        HazelcastBudget hazelcastBudget = getHazelcastBudget( userEmail );
+        return hazelcastBudget.toBudget().getForeseenExpensesTotal();
     }
 
     @Override
