@@ -23,9 +23,13 @@ public class UserController {
         this.findUserByEmail = findUserByEmail;
     }
 
-    public UserWeb createUser(UserWeb userUiModel) {
-        this.createUser.create(userUiModel.getEmail());
-        return userUiModel;
+    public UserWeb createUser(UserWeb userUiModel) throws UserNotFoundWebException {
+        try {
+            this.createUser.create(userUiModel.getEmail());
+            return userUiModel;
+        } catch (UserNotFoundException exception) {
+            throw new UserNotFoundWebException(exception.getMessage());
+        }
     }
 
     public List<UserWeb> getAllUsers() {
