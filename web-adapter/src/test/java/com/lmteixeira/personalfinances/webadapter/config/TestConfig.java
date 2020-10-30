@@ -1,9 +1,11 @@
 package com.lmteixeira.personalfinances.webadapter.config;
 
 import com.lmteixeira.personalfinances.usecases.budget.AddExpense;
+import com.lmteixeira.personalfinances.usecases.budget.AddIncome;
 import com.lmteixeira.personalfinances.usecases.budget.CreateBudget;
 import com.lmteixeira.personalfinances.usecases.budget.FindUserBudget;
 import com.lmteixeira.personalfinances.usecases.budget.GetExpenseDescriptions;
+import com.lmteixeira.personalfinances.usecases.budget.GetIncomeDescriptions;
 import com.lmteixeira.personalfinances.usecases.interfaces.BudgetRepository;
 import com.lmteixeira.personalfinances.usecases.interfaces.UserRepository;
 import com.lmteixeira.personalfinances.usecases.user.CreateUser;
@@ -11,6 +13,7 @@ import com.lmteixeira.personalfinances.usecases.user.FindAllUsers;
 import com.lmteixeira.personalfinances.usecases.user.FindUserByEmail;
 import com.lmteixeira.personalfinances.webadapter.controller.BudgetController;
 import com.lmteixeira.personalfinances.webadapter.controller.ExpenseController;
+import com.lmteixeira.personalfinances.webadapter.controller.IncomeController;
 import com.lmteixeira.personalfinances.webadapter.controller.UserController;
 import com.lmteixeira.personalfinances.webadapter.repository.TestBudgetRepository;
 import com.lmteixeira.personalfinances.webadapter.repository.TestUserRepository;
@@ -38,5 +41,11 @@ public class TestConfig {
         AddExpense addExpense = new AddExpense(budgetRepository);
         GetExpenseDescriptions getExpenseDescriptions = new GetExpenseDescriptions(budgetRepository);
         return new ExpenseController(addExpense, getExpenseDescriptions);
+    }
+
+    public IncomeController incomeController() {
+        AddIncome addIncome = new AddIncome(budgetRepository);
+        GetIncomeDescriptions getIncomeDescriptions = new GetIncomeDescriptions(budgetRepository);
+        return new IncomeController(addIncome, getIncomeDescriptions);
     }
 }
