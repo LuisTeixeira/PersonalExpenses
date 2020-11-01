@@ -22,4 +22,15 @@ public class IncomeModel {
         return incomeModel;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public BigDecimal getValue() {
+        return value;
+    }
+
+    public Long getTimestamp() {
+        return timestamp;
+    }
 }

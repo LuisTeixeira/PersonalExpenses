@@ -21,4 +21,16 @@ public class ExpenseModel {
         expenseModel.timestamp = transaction.getTimestamp();
         return expenseModel;
     }
+
+    public BigDecimal getValue() {
+        return value;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Long getTimestamp() {
+        return timestamp;
+    }
 }
