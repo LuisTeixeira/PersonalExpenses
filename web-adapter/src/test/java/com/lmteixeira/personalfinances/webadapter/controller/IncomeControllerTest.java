@@ -1,6 +1,5 @@
 package com.lmteixeira.personalfinances.webadapter.controller;
 
-import com.lmteixeira.personalfinances.domain.transaction.Transaction;
 import com.lmteixeira.personalfinances.webadapter.config.TestConfig;
 import com.lmteixeira.personalfinances.webadapter.exception.BudgetWebNotFoundException;
 import com.lmteixeira.personalfinances.webadapter.exception.UserNotFoundWebException;
@@ -69,5 +68,31 @@ public class IncomeControllerTest {
             exceptionThrown = true;
         }
         Assert.assertTrue(exceptionThrown);
+    }
+
+    @Test
+    public void getAllIncomeShouldReturnAnEmptyListWhenNoExpensesWereAdded() throws BudgetWebNotFoundException {
+        List<TransactionWeb> expenses = incomeController.getAllIncome(USER_EMAIL);
+        Assert.assertEquals(0, expenses.size());
+    }
+
+    @Test
+    public void getAllIncomeShouldThrowExceptionWhenBudgetDoesNotExist() {
+        String notCreatedUserEmail = "not_created@user.com";
+        boolean exceptionThrown = false;
+        try {
+            List<TransactionWeb> expensesDescriptions = incomeController.getAllIncome(notCreatedUserEmail);
+        } catch (BudgetWebNotFoundException e) {
+            exceptionThrown = true;
+        }
+        Assert.assertTrue(exceptionThrown);
+    }
+
+    @Test
+    public void getAllIncomeShouldReturnAListWithTheSameNumberOfElementsAsExpensesAdded() throws BudgetWebNotFoundException {
+        TransactionWeb transactionWeb = new TransactionWeb("Test Expense", 20.0d);
+        incomeController.add(USER_EMAIL, transactionWeb);
+        List<TransactionWeb> expensesDescriptions = incomeController.getAllIncome(USER_EMAIL);
+        Assert.assertEquals(1, expensesDescriptions.size());
     }
 }

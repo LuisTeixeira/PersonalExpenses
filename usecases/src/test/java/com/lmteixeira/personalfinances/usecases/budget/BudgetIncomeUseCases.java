@@ -3,7 +3,7 @@ package com.lmteixeira.personalfinances.usecases.budget;
 import com.lmteixeira.personalfinances.usecases.config.TestConfig;
 import com.lmteixeira.personalfinances.usecases.exceptions.BudgetNotFoundException;
 import com.lmteixeira.personalfinances.usecases.exceptions.UserNotFoundException;
-import com.lmteixeira.personalfinances.usecases.models.IncomeModel;
+import com.lmteixeira.personalfinances.usecases.models.TransactionModel;
 import com.lmteixeira.personalfinances.usecases.utilities.BigDecimalsUtilities;
 import org.junit.Assert;
 import org.junit.Before;
@@ -109,7 +109,7 @@ public class BudgetIncomeUseCases {
     @Test
     public void getAllIncomeShouldReturnAnEmptyListWhenNoIncomeWasAdded() throws UserNotFoundException, BudgetNotFoundException {
         utils.createUserAndBudget();
-        List<IncomeModel> incomes = getAllIncome.getAllIncome(utils.getUserEmail());
+        List<TransactionModel> incomes = getAllIncome.getAllIncome(utils.getUserEmail());
         Assert.assertEquals(0, incomes.size());
     }
 
@@ -117,7 +117,7 @@ public class BudgetIncomeUseCases {
     public void getAllIncomeShouldReturnAListWithTheSameNumberOfElementsAsAddedIncome() throws UserNotFoundException, BudgetNotFoundException {
         utils.createUserAndBudget();
         addIncome.addIncome(utils.getUserEmail(), "Test Income", BigDecimal.valueOf(32d));
-        List<IncomeModel> incomes = getAllIncome.getAllIncome(utils.getUserEmail());
+        List<TransactionModel> incomes = getAllIncome.getAllIncome(utils.getUserEmail());
         Assert.assertEquals(1, incomes.size());
     }
 
@@ -125,7 +125,7 @@ public class BudgetIncomeUseCases {
     public void getAllIncomeShouldThrowAnExceptionWhenUserDoesNotExist() {
         boolean exceptionThrown = false;
         try {
-            List<IncomeModel> income = getAllIncome.getAllIncome(utils.getUserEmail());
+            List<TransactionModel> income = getAllIncome.getAllIncome(utils.getUserEmail());
         } catch (BudgetNotFoundException exception) {
             exceptionThrown = true;
         }

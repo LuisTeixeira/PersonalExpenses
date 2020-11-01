@@ -70,4 +70,29 @@ public class ExpenseControllerTest {
         Assert.assertTrue(exceptionThrown);
     }
 
+    @Test
+    public void getAllExpensesShouldReturnAnEmptyListWhenNoExpensesWereAdded() throws BudgetWebNotFoundException {
+        List<TransactionWeb> expenses = expenseController.getAllExpenses(USER_EMAIL);
+        Assert.assertEquals(0, expenses.size());
+    }
+
+    @Test
+    public void getAllExpensesShouldThrowExceptionWhenBudgetDoesNotExist() {
+        String notCreatedUserEmail = "not_created@user.com";
+        boolean exceptionThrown = false;
+        try {
+            List<TransactionWeb> expensesDescriptions = expenseController.getAllExpenses(notCreatedUserEmail);
+        } catch (BudgetWebNotFoundException e) {
+            exceptionThrown = true;
+        }
+        Assert.assertTrue(exceptionThrown);
+    }
+
+    @Test
+    public void getAllExpensesShouldReturnAListWithTheSameNumberOfElementsAsExpensesAdded() throws BudgetWebNotFoundException {
+        TransactionWeb transactionWeb = new TransactionWeb("Test Expense", 20.0d);
+        expenseController.add(USER_EMAIL, transactionWeb);
+        List<TransactionWeb> expensesDescriptions = expenseController.getAllExpenses(USER_EMAIL);
+        Assert.assertEquals(1, expensesDescriptions.size());
+    }
 }

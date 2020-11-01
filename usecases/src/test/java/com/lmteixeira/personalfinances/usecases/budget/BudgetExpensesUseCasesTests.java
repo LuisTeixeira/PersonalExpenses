@@ -3,7 +3,7 @@ package com.lmteixeira.personalfinances.usecases.budget;
 import com.lmteixeira.personalfinances.usecases.config.TestConfig;
 import com.lmteixeira.personalfinances.usecases.exceptions.BudgetNotFoundException;
 import com.lmteixeira.personalfinances.usecases.exceptions.UserNotFoundException;
-import com.lmteixeira.personalfinances.usecases.models.ExpenseModel;
+import com.lmteixeira.personalfinances.usecases.models.TransactionModel;
 import com.lmteixeira.personalfinances.usecases.utilities.BigDecimalsUtilities;
 import org.junit.Assert;
 import org.junit.Before;
@@ -109,7 +109,7 @@ public class BudgetExpensesUseCasesTests {
     @Test
     public void getAllExpensesShouldReturnAnEmptyListWhenNoExpensesWereAdded() throws UserNotFoundException, BudgetNotFoundException {
         utils.createUserAndBudget();
-        List<ExpenseModel> expenses = getAllExpenses.getAllExpenses(utils.getUserEmail());
+        List<TransactionModel> expenses = getAllExpenses.getAllExpenses(utils.getUserEmail());
         Assert.assertEquals(0, expenses.size());
     }
 
@@ -117,7 +117,7 @@ public class BudgetExpensesUseCasesTests {
     public void getAllExpensesShouldReturnAListWithTheSameNumberOfElementsAsAddedExpenses() throws UserNotFoundException, BudgetNotFoundException {
         utils.createUserAndBudget();
         addExpense.addExpense(utils.getUserEmail(), "Test Expense", BigDecimal.valueOf(23d));
-        List<ExpenseModel> expenses = getAllExpenses.getAllExpenses(utils.getUserEmail());
+        List<TransactionModel> expenses = getAllExpenses.getAllExpenses(utils.getUserEmail());
         Assert.assertEquals(1, expenses.size());
     }
 
@@ -125,7 +125,7 @@ public class BudgetExpensesUseCasesTests {
     public void getAllExpensesShouldThrowAnExceptionWhenUserDoesNotExist() {
         boolean exceptionThrown = false;
         try {
-            List<ExpenseModel> expenses = getAllExpenses.getAllExpenses(utils.getUserEmail());
+            List<TransactionModel> expenses = getAllExpenses.getAllExpenses(utils.getUserEmail());
         } catch (BudgetNotFoundException exception) {
             exceptionThrown = true;
         }

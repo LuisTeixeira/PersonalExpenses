@@ -4,18 +4,17 @@ import com.lmteixeira.personalfinances.domain.transaction.Transaction;
 
 import java.math.BigDecimal;
 
-public class ExpenseModel {
-
+public class TransactionModel {
     private BigDecimal value;
     private String description;
     private Long timestamp;
 
-    private ExpenseModel() {
+    private TransactionModel() {
 
     }
 
-    public static ExpenseModel fromTransaction(Transaction transaction) {
-        ExpenseModel expenseModel = new ExpenseModel();
+    public static TransactionModel fromTransaction(Transaction transaction) {
+        TransactionModel expenseModel = new TransactionModel();
         expenseModel.value = transaction.getValue();
         expenseModel.description = transaction.getDescriptionStringRepresentation();
         expenseModel.timestamp = transaction.getTimestamp();
