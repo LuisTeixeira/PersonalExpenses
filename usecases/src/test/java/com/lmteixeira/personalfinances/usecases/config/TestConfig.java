@@ -54,6 +54,10 @@ public class TestConfig {
         return new GetExpensesTotal(budgetRepository);
     }
 
+    public GetAllExpenses getAllExpenses() {
+        return new GetAllExpenses(budgetRepository);
+    }
+
     public AddIncome addIncome() {
         return new AddIncome(budgetRepository);
     }
@@ -68,5 +72,9 @@ public class TestConfig {
 
     public GetIncomeTotal getIncomeTotal() {
         return new GetIncomeTotal(budgetRepository);
+    }
+
+    public GetAllIncome getAllIncome() {
+        return new GetAllIncome(budgetRepository);
     }
 }

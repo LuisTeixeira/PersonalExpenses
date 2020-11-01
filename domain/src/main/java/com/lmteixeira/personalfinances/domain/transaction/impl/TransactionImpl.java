@@ -17,7 +17,7 @@ public class TransactionImpl implements Transaction {
     }
 
     @Override
-    public BigDecimal getExpenseValue() {
+    public BigDecimal getValue() {
         return expenseValue;
     }
 
@@ -33,7 +33,7 @@ public class TransactionImpl implements Transaction {
 
     @Override
     public BigDecimal sum(Transaction expenseToSum) {
-        return expenseValue.add( expenseToSum.getExpenseValue() );
+        return expenseValue.add( expenseToSum.getValue() );
     }
 
     @Override

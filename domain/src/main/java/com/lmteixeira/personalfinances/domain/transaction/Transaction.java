@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 public interface Transaction {
     Boolean isLessThanZero();
 
-    BigDecimal getExpenseValue();
+    BigDecimal getValue();
 
     BigDecimal sum(BigDecimal valueToSum);
 

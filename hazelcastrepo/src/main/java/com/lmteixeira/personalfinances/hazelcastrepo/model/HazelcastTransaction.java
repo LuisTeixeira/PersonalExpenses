@@ -16,7 +16,7 @@ public class HazelcastTransaction implements Serializable {
 
     public static HazelcastTransaction fromTransaction(Transaction transaction) {
         HazelcastTransaction hazelcastTransaction = new HazelcastTransaction();
-        hazelcastTransaction.expenseValue = transaction.getExpenseValue();
+        hazelcastTransaction.expenseValue = transaction.getValue();
         hazelcastTransaction.description = transaction.getDescriptionStringRepresentation();
         hazelcastTransaction.timestamp = transaction.getTimestamp();
         return hazelcastTransaction;

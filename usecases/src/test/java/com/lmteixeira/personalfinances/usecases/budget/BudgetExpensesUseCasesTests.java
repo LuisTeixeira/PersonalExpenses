@@ -3,6 +3,7 @@ package com.lmteixeira.personalfinances.usecases.budget;
 import com.lmteixeira.personalfinances.usecases.config.TestConfig;
 import com.lmteixeira.personalfinances.usecases.exceptions.BudgetNotFoundException;
 import com.lmteixeira.personalfinances.usecases.exceptions.UserNotFoundException;
+import com.lmteixeira.personalfinances.usecases.models.ExpenseModel;
 import com.lmteixeira.personalfinances.usecases.utilities.BigDecimalsUtilities;
 import org.junit.Assert;
 import org.junit.Before;
@@ -18,6 +19,7 @@ public class BudgetExpensesUseCasesTests {
     private AddExpense addExpense;
     private GetExpensesTotal getExpensesTotal;
     private GetExpenseDescriptions getExpenseDescriptions;
+    private GetAllExpenses getAllExpenses;
     private BudgetTestUtils utils;
 
     @Before
@@ -27,6 +29,7 @@ public class BudgetExpensesUseCasesTests {
         addExpense = config.addExpense();
         getExpenseDescriptions = config.getExpensesDescriptions();
         getExpensesTotal = config.getExpensesTotal();
+        getAllExpenses = config.getAllExpenses();
         utils = new BudgetTestUtils(config);
     }
 
@@ -98,6 +101,32 @@ public class BudgetExpensesUseCasesTests {
         try {
             BigDecimal total = getExpensesTotal.getTotal(utils.getUserEmail());
         } catch (BudgetNotFoundException ex) {
+            exceptionThrown = true;
+        }
+        Assert.assertTrue(exceptionThrown);
+    }
+
+    @Test
+    public void getAllExpensesShouldReturnAnEmptyListWhenNoExpensesWereAdded() throws UserNotFoundException, BudgetNotFoundException {
+        utils.createUserAndBudget();
+        List<ExpenseModel> expenses = getAllExpenses.getAllExpenses(utils.getUserEmail());
+        Assert.assertEquals(0, expenses.size());
+    }
+
+    @Test
+    public void getAllExpensesShouldReturnAListWithTheSameNumberOfElementsAsAddedExpenses() throws UserNotFoundException, BudgetNotFoundException {
+        utils.createUserAndBudget();
+        addExpense.addExpense(utils.getUserEmail(), "Test Expense", BigDecimal.valueOf(23d));
+        List<ExpenseModel> expenses = getAllExpenses.getAllExpenses(utils.getUserEmail());
+        Assert.assertEquals(1, expenses.size());
+    }
+
+    @Test
+    public void getAllExpensesShouldThrowAnExceptionWhenUserDoesNotExist() {
+        boolean exceptionThrown = false;
+        try {
+            List<ExpenseModel> expenses = getAllExpenses.getAllExpenses(utils.getUserEmail());
+        } catch (BudgetNotFoundException exception) {
             exceptionThrown = true;
         }
         Assert.assertTrue(exceptionThrown);
