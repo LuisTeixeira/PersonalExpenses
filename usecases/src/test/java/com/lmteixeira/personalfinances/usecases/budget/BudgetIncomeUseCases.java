@@ -3,6 +3,7 @@ package com.lmteixeira.personalfinances.usecases.budget;
 import com.lmteixeira.personalfinances.usecases.config.TestConfig;
 import com.lmteixeira.personalfinances.usecases.exceptions.BudgetNotFoundException;
 import com.lmteixeira.personalfinances.usecases.exceptions.UserNotFoundException;
+import com.lmteixeira.personalfinances.usecases.models.IncomeModel;
 import com.lmteixeira.personalfinances.usecases.utilities.BigDecimalsUtilities;
 import org.junit.Assert;
 import org.junit.Before;
@@ -19,6 +20,7 @@ public class BudgetIncomeUseCases {
     private GetIncomeCount getIncomeCount;
     private GetIncomeDescriptions getIncomeDescriptions;
     private GetIncomeTotal getIncomeTotal;
+    private GetAllIncome getAllIncome;
 
     @Before
     public void setup() {
@@ -27,6 +29,7 @@ public class BudgetIncomeUseCases {
         getIncomeCount = config.getIncomeCount();
         getIncomeDescriptions = config.getIncomeDescriptions();
         getIncomeTotal = config.getIncomeTotal();
+        getAllIncome = config.getAllIncome();
         utils = new BudgetTestUtils(config);
     }
 
@@ -98,6 +101,32 @@ public class BudgetIncomeUseCases {
         try {
             BigDecimal total = getIncomeTotal.getTotal(utils.getUserEmail());
         } catch (BudgetNotFoundException ex) {
+            exceptionThrown = true;
+        }
+        Assert.assertTrue(exceptionThrown);
+    }
+
+    @Test
+    public void getAllIncomeShouldReturnAnEmptyListWhenNoIncomeWasAdded() throws UserNotFoundException, BudgetNotFoundException {
+        utils.createUserAndBudget();
+        List<IncomeModel> incomes = getAllIncome.getAllIncome(utils.getUserEmail());
+        Assert.assertEquals(0, incomes.size());
+    }
+
+    @Test
+    public void getAllIncomeShouldReturnAListWithTheSameNumberOfElementsAsAddedIncome() throws UserNotFoundException, BudgetNotFoundException {
+        utils.createUserAndBudget();
+        addIncome.addIncome(utils.getUserEmail(), "Test Income", BigDecimal.valueOf(32d));
+        List<IncomeModel> incomes = getAllIncome.getAllIncome(utils.getUserEmail());
+        Assert.assertEquals(1, incomes.size());
+    }
+
+    @Test
+    public void getAllIncomeShouldThrowAnExceptionWhenUserDoesNotExist() {
+        boolean exceptionThrown = false;
+        try {
+            List<IncomeModel> income = getAllIncome.getAllIncome(utils.getUserEmail());
+        } catch (BudgetNotFoundException exception) {
             exceptionThrown = true;
         }
         Assert.assertTrue(exceptionThrown);
