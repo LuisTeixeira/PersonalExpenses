@@ -1,4 +1,4 @@
-package com.lmteixeira.personalfinances.spring;
+package com.lmteixeira.personalfinances.spring.controller;
 
 import com.lmteixeira.personalfinances.spring.config.TestConfig;
 import com.lmteixeira.personalfinances.spring.rest.SpringUserController;
