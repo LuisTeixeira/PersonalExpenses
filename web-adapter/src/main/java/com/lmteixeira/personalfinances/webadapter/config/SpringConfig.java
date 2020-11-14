@@ -1,15 +1,13 @@
 package com.lmteixeira.personalfinances.webadapter.config;
 
-import com.lmteixeira.personalfinances.usecases.budget.AddExpense;
-import com.lmteixeira.personalfinances.usecases.budget.CreateBudget;
-import com.lmteixeira.personalfinances.usecases.budget.GetAllExpenses;
-import com.lmteixeira.personalfinances.usecases.budget.GetExpenseDescriptions;
+import com.lmteixeira.personalfinances.usecases.budget.*;
 import com.lmteixeira.personalfinances.usecases.interfaces.BudgetRepository;
 import com.lmteixeira.personalfinances.usecases.interfaces.UserRepository;
 import com.lmteixeira.personalfinances.usecases.user.CreateUser;
 import com.lmteixeira.personalfinances.usecases.user.FindAllUsers;
 import com.lmteixeira.personalfinances.usecases.user.FindUserByEmail;
 import com.lmteixeira.personalfinances.webadapter.controller.ExpenseController;
+import com.lmteixeira.personalfinances.webadapter.controller.IncomeController;
 import com.lmteixeira.personalfinances.webadapter.controller.UserController;
 
 public class SpringConfig {
@@ -28,6 +26,10 @@ public class SpringConfig {
 
     public ExpenseController expenseController() {
         return new ExpenseController(addExpense(), getExpenseDescriptions(), getAllExpenses());
+    }
+
+    public IncomeController incomeController() {
+        return new IncomeController(addIncome(), getIncomeDescriptions(), getAllIncome());
     }
 
     private FindUserByEmail findUserByEmail() {
@@ -56,5 +58,17 @@ public class SpringConfig {
 
     private GetAllExpenses getAllExpenses() {
         return new GetAllExpenses(budgetRepository);
+    }
+
+    private AddIncome addIncome() {
+        return new AddIncome(budgetRepository);
+    }
+
+    private GetIncomeDescriptions getIncomeDescriptions() {
+        return new GetIncomeDescriptions(budgetRepository);
+    }
+
+    private GetAllIncome getAllIncome() {
+        return new GetAllIncome(budgetRepository);
     }
 }

@@ -3,6 +3,7 @@ package com.lmteixeira.personalfinances.spring.config;
 import com.lmteixeira.personalfinances.spring.repository.TestBudgetRepository;
 import com.lmteixeira.personalfinances.spring.repository.TestUserRepository;
 import com.lmteixeira.personalfinances.spring.rest.SpringExpenseController;
+import com.lmteixeira.personalfinances.spring.rest.SpringIncomeController;
 import com.lmteixeira.personalfinances.spring.rest.SpringUserController;
 import com.lmteixeira.personalfinances.usecases.interfaces.BudgetRepository;
 import com.lmteixeira.personalfinances.usecases.interfaces.UserRepository;
@@ -20,5 +21,9 @@ public class TestConfig {
 
     public SpringExpenseController expenseController() {
         return new SpringExpenseController(springConfig.expenseController());
+    }
+
+    public SpringIncomeController incomeController() {
+        return new SpringIncomeController(springConfig.incomeController());
     }
 }
