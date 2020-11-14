@@ -22,7 +22,7 @@ public class SpringExpenseController {
     public ResponseEntity getAllExpenses(String userEmail) {
         try {
             List<TransactionWeb> expenses = expenseController.getAllExpenses(userEmail);
-            return ResponseEntity.status(200).body(expenses);
+            return ResponseEntity.ok(expenses);
         } catch (BudgetWebNotFoundException e) {
             return ResponseEntity.status(500).body(e.getMessage());
         }
