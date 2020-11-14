@@ -4,9 +4,11 @@ import com.lmteixeira.personalfinances.webadapter.controller.IncomeController;
 import com.lmteixeira.personalfinances.webadapter.exception.BudgetWebNotFoundException;
 import com.lmteixeira.personalfinances.webadapter.model.TransactionWeb;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@RestController
 public class SpringIncomeController {
 
     private IncomeController incomeController;
