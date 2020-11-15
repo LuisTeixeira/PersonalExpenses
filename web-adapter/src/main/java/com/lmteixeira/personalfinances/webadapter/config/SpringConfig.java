@@ -6,6 +6,7 @@ import com.lmteixeira.personalfinances.usecases.interfaces.UserRepository;
 import com.lmteixeira.personalfinances.usecases.user.CreateUser;
 import com.lmteixeira.personalfinances.usecases.user.FindAllUsers;
 import com.lmteixeira.personalfinances.usecases.user.FindUserByEmail;
+import com.lmteixeira.personalfinances.webadapter.controller.BudgetController;
 import com.lmteixeira.personalfinances.webadapter.controller.ExpenseController;
 import com.lmteixeira.personalfinances.webadapter.controller.IncomeController;
 import com.lmteixeira.personalfinances.webadapter.controller.UserController;
@@ -30,6 +31,10 @@ public class SpringConfig {
 
     public IncomeController incomeController() {
         return new IncomeController(addIncome(), getIncomeDescriptions(), getAllIncome());
+    }
+
+    public BudgetController budgetController() {
+        return new BudgetController(findUserBudget(), createBudget());
     }
 
     private FindUserByEmail findUserByEmail() {
@@ -70,5 +75,9 @@ public class SpringConfig {
 
     private GetAllIncome getAllIncome() {
         return new GetAllIncome(budgetRepository);
+    }
+
+    private FindUserBudget findUserBudget() {
+        return new FindUserBudget(budgetRepository);
     }
 }

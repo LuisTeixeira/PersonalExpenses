@@ -1,10 +1,11 @@
 package com.lmteixeira.personalfinances.spring.utils.config;
 
-import com.lmteixeira.personalfinances.spring.utils.repository.TestBudgetRepository;
-import com.lmteixeira.personalfinances.spring.utils.repository.TestUserRepository;
+import com.lmteixeira.personalfinances.spring.rest.SpringBudgetController;
 import com.lmteixeira.personalfinances.spring.rest.SpringExpenseController;
 import com.lmteixeira.personalfinances.spring.rest.SpringIncomeController;
 import com.lmteixeira.personalfinances.spring.rest.SpringUserController;
+import com.lmteixeira.personalfinances.spring.utils.repository.TestBudgetRepository;
+import com.lmteixeira.personalfinances.spring.utils.repository.TestUserRepository;
 import com.lmteixeira.personalfinances.usecases.interfaces.BudgetRepository;
 import com.lmteixeira.personalfinances.usecases.interfaces.UserRepository;
 import com.lmteixeira.personalfinances.webadapter.config.SpringConfig;
@@ -25,5 +26,9 @@ public class TestConfig {
 
     public SpringIncomeController incomeController() {
         return new SpringIncomeController(springConfig.incomeController());
+    }
+
+    public SpringBudgetController budgetController() {
+        return new SpringBudgetController(springConfig.budgetController());
     }
 }
