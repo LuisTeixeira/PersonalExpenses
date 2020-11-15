@@ -4,17 +4,17 @@ import com.lmteixeira.personalfinances.usecases.models.BudgetModel;
 
 public class BudgetWeb {
 
-    private String balance;
+    private Double balance;
     private boolean isNegative;
 
     public static BudgetWeb toBudgetWebModel(BudgetModel budget) {
         BudgetWeb budgetWeb = new BudgetWeb();
-        budgetWeb.balance = budget.getBalance().toEngineeringString();
+        budgetWeb.balance = budget.getBalance().doubleValue();
         budgetWeb.isNegative = budget.isNegative();
         return budgetWeb;
     }
 
-    public String getBalance() {
+    public Double getBalance() {
         return balance;
     }
 

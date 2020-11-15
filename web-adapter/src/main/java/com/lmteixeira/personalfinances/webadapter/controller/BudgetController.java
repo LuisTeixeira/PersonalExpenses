@@ -20,12 +20,12 @@ public class BudgetController {
         this.createBudget = createBudget;
     }
 
-    public BudgetWeb getBudgetForUser(UserWeb user) throws BudgetNotFoundWebException {
+    public BudgetWeb getBudgetForUser(String userEmail) throws BudgetNotFoundWebException {
         try {
-            BudgetModel budget = findUserBudget.findUserBudget(user.getEmail());
+            BudgetModel budget = findUserBudget.findUserBudget(userEmail);
             return BudgetWeb.toBudgetWebModel(budget);
         } catch (BudgetNotFoundException e) {
-            throw new BudgetNotFoundWebException("Budget not found for user " + user.getEmail());
+            throw new BudgetNotFoundWebException("Budget not found for user " + userEmail);
         }
 
     }

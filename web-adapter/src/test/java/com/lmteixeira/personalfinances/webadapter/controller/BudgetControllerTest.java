@@ -11,6 +11,8 @@ import org.junit.Test;
 
 public class BudgetControllerTest {
 
+    private static final String USER_EMAIL = "test@user.com";
+
     private TestConfig config;
     private BudgetController budgetController;
     private UserController userController;
@@ -24,10 +26,10 @@ public class BudgetControllerTest {
 
     @Test
     public void getBudgetForUserShouldThrowExceptionWhenUserHasNoBudgetCreated() {
-        UserWeb user = new UserWeb("test@test.com");
+        UserWeb user = new UserWeb(USER_EMAIL);
         boolean exceptionThrown = false;
         try{
-            BudgetWeb userBudget = budgetController.getBudgetForUser(user);
+            BudgetWeb userBudget = budgetController.getBudgetForUser(USER_EMAIL);
         } catch (BudgetNotFoundWebException e) {
             exceptionThrown = true;
         }
@@ -36,28 +38,28 @@ public class BudgetControllerTest {
 
     @Test
     public void getBudgetForUserShouldReturnBudgetIfBudgetWasCreated() throws BudgetNotFoundWebException, UserNotFoundWebException {
-        UserWeb user = new UserWeb("test@test.com");
+        UserWeb user = new UserWeb(USER_EMAIL);
         userController.createUser(user);
         budgetController.createBudgetForUser(user);
-        BudgetWeb userBudget = budgetController.getBudgetForUser(user);
+        BudgetWeb userBudget = budgetController.getBudgetForUser(USER_EMAIL);
         Assert.assertNotNull(userBudget);
     }
 
     @Test
     public void budgetReturnedAfterCreationShouldHaveBalanceEqualToZero() throws UserNotFoundWebException, BudgetNotFoundWebException {
-        UserWeb user = new UserWeb("test@test.com");
+        UserWeb user = new UserWeb(USER_EMAIL);
         userController.createUser(user);
         budgetController.createBudgetForUser(user);
-        BudgetWeb userBudget = budgetController.getBudgetForUser(user);
-        Assert.assertEquals("0", userBudget.getBalance());
+        BudgetWeb userBudget = budgetController.getBudgetForUser(USER_EMAIL);
+        Assert.assertEquals(Double.valueOf(0d), userBudget.getBalance());
     }
 
     @Test
     public void budgetReturnedAfterCreationShouldNotBeNegative() throws UserNotFoundWebException, BudgetNotFoundWebException {
-        UserWeb user = new UserWeb("test@test.com");
+        UserWeb user = new UserWeb(USER_EMAIL);
         userController.createUser(user);
         budgetController.createBudgetForUser(user);
-        BudgetWeb userBudget = budgetController.getBudgetForUser(user);
+        BudgetWeb userBudget = budgetController.getBudgetForUser(USER_EMAIL);
         Assert.assertFalse(userBudget.isNegative());
     }
 
