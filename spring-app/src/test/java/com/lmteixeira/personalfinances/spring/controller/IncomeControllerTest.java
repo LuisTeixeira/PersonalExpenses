@@ -1,6 +1,6 @@
 package com.lmteixeira.personalfinances.spring.controller;
 
-import com.lmteixeira.personalfinances.spring.config.TestConfig;
+import com.lmteixeira.personalfinances.spring.utils.config.TestConfig;
 import com.lmteixeira.personalfinances.spring.rest.SpringIncomeController;
 import com.lmteixeira.personalfinances.spring.rest.SpringUserController;
 import com.lmteixeira.personalfinances.webadapter.model.TransactionWeb;

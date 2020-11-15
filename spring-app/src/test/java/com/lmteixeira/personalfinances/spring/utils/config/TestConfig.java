@@ -1,7 +1,7 @@
-package com.lmteixeira.personalfinances.spring.config;
+package com.lmteixeira.personalfinances.spring.utils.config;
 
-import com.lmteixeira.personalfinances.spring.repository.TestBudgetRepository;
-import com.lmteixeira.personalfinances.spring.repository.TestUserRepository;
+import com.lmteixeira.personalfinances.spring.utils.repository.TestBudgetRepository;
+import com.lmteixeira.personalfinances.spring.utils.repository.TestUserRepository;
 import com.lmteixeira.personalfinances.spring.rest.SpringExpenseController;
 import com.lmteixeira.personalfinances.spring.rest.SpringIncomeController;
 import com.lmteixeira.personalfinances.spring.rest.SpringUserController;

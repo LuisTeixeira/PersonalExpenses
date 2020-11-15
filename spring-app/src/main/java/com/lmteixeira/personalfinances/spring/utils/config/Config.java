@@ -1,4 +1,4 @@
-package com.lmteixeira.personalfinances.spring.config;
+package com.lmteixeira.personalfinances.spring.utils.config;
 
 import com.lmteixeira.personalfinances.hazelcastrepo.HazelcastBudgetRepository;
 import com.lmteixeira.personalfinances.hazelcastrepo.HazelcastUserRepository;
